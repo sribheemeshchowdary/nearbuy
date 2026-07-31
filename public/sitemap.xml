@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Static Pages -->
+  <url><loc>https://nearbuy.sg/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://nearbuy.sg/about</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://nearbuy.sg/contact</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://nearbuy.sg/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://nearbuy.sg/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://nearbuy.sg/signup</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://nearbuy.sg/add-listing</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- City Landing Pages -->
+  <url><loc>https://nearbuy.sg/singapore</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://nearbuy.sg/kuala-lumpur</loc><changefreq>daily</changefreq><priority>0.7</priority></url>
+  <url><loc>https://nearbuy.sg/jakarta</loc><changefreq>daily</changefreq><priority>0.7</priority></url>
+  <url><loc>https://nearbuy.sg/bangkok</loc><changefreq>daily</changefreq><priority>0.7</priority></url>
+  <url><loc>https://nearbuy.sg/ho-chi-minh</loc><changefreq>daily</changefreq><priority>0.7</priority></url>
+
+  <!-- Singapore Category Pages -->
+  <url><loc>https://nearbuy.sg/singapore/tuition</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://nearbuy.sg/singapore/baking</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://nearbuy.sg/singapore/music-art-craft</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://nearbuy.sg/singapore/home-food</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://nearbuy.sg/singapore/beauty</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://nearbuy.sg/singapore/pet-services</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://nearbuy.sg/singapore/event-services</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://nearbuy.sg/singapore/tailoring</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://nearbuy.sg/singapore/cleaning</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://nearbuy.sg/singapore/handyman</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://nearbuy.sg/singapore/photography-videography</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+</urlset>

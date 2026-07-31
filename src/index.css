@@ -1,0 +1,359 @@
+/* Fonts are loaded via a single preconnected <link> in index.html for faster first paint. */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Smooth scrolling with premium feel ── */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 11%;
+
+    --primary: 169 46% 18%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 169 40% 26%;
+
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 32%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 46%;
+
+    --accent: 169 46% 18%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 92%;
+    --input: 0 0% 92%;
+    --ring: 169 46% 18%;
+
+    --radius: 0.75rem;
+
+    --success: 152 69% 40%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --info: 169 46% 18%;
+    --info-foreground: 0 0% 100%;
+
+    --header-bg: 0 0% 100%;
+    --header-foreground: 0 0% 11%;
+    --announcement-bg: 0 0% 11%;
+    --announcement-foreground: 0 0% 100%;
+    --nav-bg: 0 0% 100%;
+    --nav-border: 0 0% 92%;
+    --hero-overlay: 0 0% 0%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 20%;
+    --sidebar-primary: 169 46% 18%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 169 46% 18%;
+    --sidebar-border: 0 0% 92%;
+    --sidebar-ring: 169 46% 18%;
+
+    --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.04), 0 1px 2px -1px hsl(0 0% 0% / 0.04);
+    --shadow-card-hover: 0 10px 25px -5px hsl(0 0% 0% / 0.08), 0 4px 6px -4px hsl(0 0% 0% / 0.04);
+    --shadow-primary: 0 4px 14px 0 hsl(169 46% 18% / 0.25);
+  }
+
+  .dark {
+    --background: 150 10% 7%;
+    --foreground: 140 10% 93%;
+
+    --card: 150 10% 11%;
+    --card-foreground: 140 10% 93%;
+
+    --popover: 150 10% 11%;
+    --popover-foreground: 140 10% 93%;
+
+    --primary: 169 46% 26%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 169 40% 34%;
+
+    --secondary: 150 10% 16%;
+    --secondary-foreground: 140 10% 80%;
+
+    --muted: 150 10% 16%;
+    --muted-foreground: 140 5% 55%;
+
+    --accent: 169 46% 26%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 63% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 150 8% 20%;
+    --input: 150 8% 20%;
+    --ring: 169 46% 26%;
+
+    --success: 152 69% 45%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --info: 210 100% 56%;
+    --info-foreground: 0 0% 100%;
+
+    --header-bg: 153 30% 14%;
+    --header-foreground: 0 0% 100%;
+    --announcement-bg: 150 10% 10%;
+    --announcement-foreground: 0 0% 100%;
+
+    --sidebar-background: 150 10% 9%;
+    --sidebar-foreground: 140 10% 90%;
+    --sidebar-primary: 140 10% 96%;
+    --sidebar-primary-foreground: 150 10% 9%;
+    --sidebar-accent: 150 10% 16%;
+    --sidebar-accent-foreground: 140 10% 96%;
+    --sidebar-border: 150 8% 20%;
+    --sidebar-ring: 169 46% 26%;
+
+    --shadow-card: 0 2px 20px -2px hsl(0 0% 0% / 0.3);
+    --shadow-card-hover: 0 8px 30px -6px hsl(0 0% 0% / 0.4);
+    --shadow-primary: 0 8px 30px -4px hsl(169 46% 26% / 0.35);
+  }
+
+  /* ── Dashboard-scoped green theme (Donezo-inspired) ── */
+  .dashboard-theme {
+    --background: 120 10% 96%;
+    --foreground: 150 10% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 150 10% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 150 10% 10%;
+    --primary: 184 100% 18%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 184 80% 26%;
+    --secondary: 120 8% 94%;
+    --secondary-foreground: 150 10% 30%;
+    --muted: 120 8% 94%;
+    --muted-foreground: 150 5% 45%;
+    --accent: 184 100% 18%;
+    --accent-foreground: 0 0% 100%;
+    --border: 120 6% 88%;
+    --input: 120 6% 88%;
+    --ring: 184 100% 18%;
+    --success: 152 60% 36%;
+    --success-foreground: 0 0% 100%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    --info: 184 100% 22%;
+    --info-foreground: 0 0% 100%;
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 150 10% 26%;
+    --sidebar-primary: 184 100% 18%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 184 40% 94%;
+    --sidebar-accent-foreground: 184 100% 14%;
+    --sidebar-border: 120 6% 90%;
+    --sidebar-ring: 184 100% 18%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', 'Helvetica Neue', 'Arial', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.01em;
+    overscroll-behavior-y: none;
+  }
+
+  /* Keyboard-only focus ring on interactive elements (skips inputs/selects which have their own) */
+  button:focus-visible,
+  a:focus-visible,
+  [role="button"]:focus-visible,
+  [role="tab"]:focus-visible,
+  [role="menuitem"]:focus-visible,
+  [role="option"]:focus-visible,
+  summary:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--primary) / 0.4);
+    border-radius: 8px;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white dark:bg-[hsl(225,30%,9%)] border border-border/50;
+  }
+  .glass-card {
+    @apply bg-white dark:bg-[hsl(225,30%,11%)] border border-border/40 rounded-xl;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .glass-card:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-0.5;
+  }
+  .hover-lift:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .glow-primary {
+    box-shadow: var(--shadow-primary);
+  }
+
+  /* ── Retro design utilities ── */
+  .retro-shadow {
+    box-shadow: 4px 4px 0 0 hsl(var(--foreground) / 0.08);
+  }
+  .retro-shadow-sm {
+    box-shadow: 2px 2px 0 0 hsl(var(--foreground) / 0.06);
+  }
+  .retro-shadow-primary {
+    box-shadow: 3px 3px 0 0 hsl(var(--primary) / 0.15);
+  }
+  .retro-border {
+    border: 2px solid hsl(var(--foreground) / 0.08);
+  }
+  .retro-border-strong {
+    border: 2px solid hsl(var(--foreground) / 0.12);
+  }
+  .retro-dot-bg {
+    background-image: radial-gradient(hsl(var(--foreground) / 0.04) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+  .retro-grid-bg {
+    background-image:
+      linear-gradient(hsl(var(--foreground) / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.03) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .retro-stripe-bg {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 6px,
+      hsl(var(--foreground) / 0.015) 6px,
+      hsl(var(--foreground) / 0.015) 12px
+    );
+  }
+}
+
+/* Hyper-style announcement bar scroll */
+@keyframes announcement-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-announcement {
+  animation: announcement-scroll 30s linear infinite;
+}
+
+/* Observer-driven reveal: hidden by default, animate on .is-visible */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px) scale(0.98);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Stagger children with data-reveal */
+[data-reveal-stagger] > [data-reveal] {
+  transition-delay: calc(var(--reveal-i, 0) * 70ms);
+}
+
+/* CSS-only stagger animation (no JS needed) */
+.stagger-children > * {
+  opacity: 0;
+  animation: reveal-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 60ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 120ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 180ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 240ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 360ms; }
+.stagger-children > *:nth-child(8) { animation-delay: 420ms; }
+.stagger-children > *:nth-child(9) { animation-delay: 480ms; }
+.stagger-children > *:nth-child(10) { animation-delay: 540ms; }
+.stagger-children > *:nth-child(11) { animation-delay: 600ms; }
+.stagger-children > *:nth-child(12) { animation-delay: 660ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    transition: none !important;
+  }
+  .stagger-children > * {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Hide Google Maps InfoWindow close button */
+.gm-ui-hover-effect {
+  display: none !important;
+}
+/* Google Maps InfoWindow: remove inner scrollbar & tighten padding for compact popup */
+.gm-style .gm-style-iw-c {
+  padding: 8px !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.18) !important;
+}
+.gm-style .gm-style-iw-d {
+  overflow: hidden !important;
+  max-height: none !important;
+  padding: 0 !important;
+}
+.gm-style .gm-style-iw-d::-webkit-scrollbar {
+  display: none !important;
+}
+.gm-style .gm-style-iw-chr {
+  display: none !important;
+}
+@keyframes mapImgShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

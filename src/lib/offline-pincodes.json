@@ -1,0 +1,1058 @@
+[
+  {
+    "postal": "109028",
+    "building": "TELOK BLANGAH MRT STATION",
+    "block": "463",
+    "road": "TELOK BLANGAH ROAD",
+    "lat": 1.27070647717764,
+    "lng": 103.809761611219
+  },
+  {
+    "postal": "109029",
+    "building": "LABRADOR PARK MRT STATION",
+    "block": "701",
+    "road": "TELOK BLANGAH ROAD",
+    "lat": 1.27225417749657,
+    "lng": 103.802631578766
+  },
+  {
+    "postal": "117396",
+    "building": "HAW PAR VILLA MRT STATION",
+    "block": "270",
+    "road": "PASIR PANJANG ROAD",
+    "lat": 1.28257135827237,
+    "lng": 103.781752724792
+  },
+  {
+    "postal": "117424",
+    "building": "PASIR PANJANG MRT STATION",
+    "block": "119",
+    "road": "PASIR PANJANG ROAD",
+    "lat": 1.27621352233768,
+    "lng": 103.791350313288
+  },
+  {
+    "postal": "118177",
+    "building": "KENT RIDGE MRT STATION",
+    "block": "301",
+    "road": "SOUTH BUONA VISTA ROAD",
+    "lat": 1.29353698622128,
+    "lng": 103.784572366595
+  },
+  {
+    "postal": "129580",
+    "building": "CLEMENTI MRT STATION",
+    "block": "3150",
+    "road": "COMMONWEALTH AVENUE WEST",
+    "lat": 1.3152012635208,
+    "lng": 103.765182446647
+  },
+  {
+    "postal": "138647",
+    "building": "ONE-NORTH MRT STATION",
+    "block": "9",
+    "road": "AYER RAJAH AVENUE",
+    "lat": 1.29975987849417,
+    "lng": 103.78745750797
+  },
+  {
+    "postal": "138677",
+    "building": "DOVER MRT STATION",
+    "block": "200",
+    "road": "COMMONWEALTH AVENUE WEST",
+    "lat": 1.31140529320966,
+    "lng": 103.778637841909
+  },
+  {
+    "postal": "139345",
+    "building": "BUONA VISTA MRT STATION",
+    "block": "100",
+    "road": "NORTH BUONA VISTA ROAD",
+    "lat": 1.30722370820444,
+    "lng": 103.790253514502
+  },
+  {
+    "postal": "149729",
+    "building": "QUEENSTOWN MRT STATION",
+    "block": "301",
+    "road": "COMMONWEALTH AVENUE",
+    "lat": 1.29455085184934,
+    "lng": 103.806077155982
+  },
+  {
+    "postal": "149735",
+    "building": "COMMONWEALTH MRT STATION",
+    "block": "375",
+    "road": "COMMONWEALTH AVENUE",
+    "lat": 1.30250853704708,
+    "lng": 103.798226128263
+  },
+  {
+    "postal": "158792",
+    "building": "REDHILL MRT STATION",
+    "block": "920",
+    "road": "TIONG BAHRU ROAD",
+    "lat": 1.28963453358141,
+    "lng": 103.816740969874
+  },
+  {
+    "postal": "168731",
+    "building": "TIONG BAHRU MRT STATION",
+    "block": "300",
+    "road": "TIONG BAHRU ROAD",
+    "lat": 1.28610253615777,
+    "lng": 103.827445112419
+  },
+  {
+    "postal": "179038",
+    "building": "FORT CANNING MRT STATION",
+    "block": "170",
+    "road": "RIVER VALLEY ROAD",
+    "lat": 1.29248123652549,
+    "lng": 103.844331060302
+  },
+  {
+    "postal": "179100",
+    "building": "CITY HALL MRT STATION",
+    "block": "150",
+    "road": "NORTH BRIDGE ROAD",
+    "lat": 1.29293624242153,
+    "lng": 103.852585892041
+  },
+  {
+    "postal": "179103",
+    "building": "Funan",
+    "block": "107",
+    "road": "North Bridge Road",
+    "lat": 1.2913,
+    "lng": 103.8499
+  },
+  {
+    "postal": "188021",
+    "building": "Bugis Junction",
+    "block": "200",
+    "road": "Victoria Street",
+    "lat": 1.3006,
+    "lng": 103.8553
+  },
+  {
+    "postal": "188022",
+    "building": "BUGIS MRT STATION",
+    "block": "220",
+    "road": "VICTORIA STREET",
+    "lat": 1.30046507606683,
+    "lng": 103.855706414086
+  },
+  {
+    "postal": "188505",
+    "building": "ROCHOR MRT STATION",
+    "block": "11",
+    "road": "ROCHOR CANAL ROAD",
+    "lat": 1.30385218527657,
+    "lng": 103.852769428884
+  },
+  {
+    "postal": "189561",
+    "building": "BRAS BASAH MRT STATION",
+    "block": "65",
+    "road": "BRAS BASAH ROAD",
+    "lat": 1.29686168649658,
+    "lng": 103.850667371637
+  },
+  {
+    "postal": "189562",
+    "building": "ESPLANADE MRT STATION",
+    "block": "90",
+    "road": "BRAS BASAH ROAD",
+    "lat": 1.29365772453863,
+    "lng": 103.855081226245
+  },
+  {
+    "postal": "189658",
+    "building": "BENCOOLEN MRT STATION",
+    "block": "31",
+    "road": "BENCOOLEN STREET",
+    "lat": 1.29891843369424,
+    "lng": 103.850353762717
+  },
+  {
+    "postal": "208699",
+    "building": "LAVENDER MRT STATION",
+    "block": "50",
+    "road": "KALLANG ROAD",
+    "lat": 1.30737750842617,
+    "lng": 103.862767633612
+  },
+  {
+    "postal": "208826",
+    "building": "JALAN BESAR MRT STATION",
+    "block": "90",
+    "road": "JALAN BESAR",
+    "lat": 1.30517138780691,
+    "lng": 103.855295713435
+  },
+  {
+    "postal": "218703",
+    "building": "FARRER PARK MRT STATION",
+    "block": "250",
+    "road": "RACE COURSE ROAD",
+    "lat": 1.31190557325777,
+    "lng": 103.853477716509
+  },
+  {
+    "postal": "228234",
+    "building": "NEWTON MRT STATION",
+    "block": "49",
+    "road": "SCOTTS ROAD",
+    "lat": 1.31232009946014,
+    "lng": 103.837985299521
+  },
+  {
+    "postal": "229900",
+    "building": "LITTLE INDIA MRT STATION",
+    "block": "60",
+    "road": "BUKIT TIMAH ROAD",
+    "lat": 1.30680002560554,
+    "lng": 103.84964696645
+  },
+  {
+    "postal": "238162",
+    "building": "SOMERSET MRT STATION",
+    "block": "1",
+    "road": "SOMERSET ROAD",
+    "lat": 1.30026416739007,
+    "lng": 103.839085753124
+  },
+  {
+    "postal": "238826",
+    "building": "DHOBY GHAUT MRT STATION",
+    "block": "11",
+    "road": "ORCHARD ROAD",
+    "lat": 1.29870130619238,
+    "lng": 103.846115155028
+  },
+  {
+    "postal": "238872",
+    "building": "Ngee Ann City",
+    "block": "391",
+    "road": "Orchard Road",
+    "lat": 1.3023,
+    "lng": 103.8348
+  },
+  {
+    "postal": "238878",
+    "building": "ORCHARD MRT STATION",
+    "block": "437",
+    "road": "ORCHARD ROAD",
+    "lat": 1.30397987430726,
+    "lng": 103.832245299857
+  },
+  {
+    "postal": "257494",
+    "building": "BOTANIC GARDENS MRT STATION",
+    "block": "100",
+    "road": "CLUNY PARK ROAD",
+    "lat": 1.32211373558878,
+    "lng": 103.814984510627
+  },
+  {
+    "postal": "257877",
+    "building": "STEVENS MRT STATION",
+    "block": "92",
+    "road": "STEVENS ROAD",
+    "lat": 1.32006555750627,
+    "lng": 103.826024401924
+  },
+  {
+    "postal": "266268",
+    "building": "TAN KAH KEE MRT STATION",
+    "block": "651",
+    "road": "BUKIT TIMAH ROAD",
+    "lat": 1.325556235199,
+    "lng": 103.807760304729
+  },
+  {
+    "postal": "268857",
+    "building": "FARRER ROAD MRT STATION",
+    "block": "71",
+    "road": "FARRER ROAD",
+    "lat": 1.31743915158969,
+    "lng": 103.807379214161
+  },
+  {
+    "postal": "269784",
+    "building": "SIXTH AVENUE MRT STATION",
+    "block": "777",
+    "road": "BUKIT TIMAH ROAD",
+    "lat": 1.33085764536228,
+    "lng": 103.796906838288
+  },
+  {
+    "postal": "278995",
+    "building": "HOLLAND VILLAGE MRT STATION",
+    "block": "200",
+    "road": "HOLLAND AVENUE",
+    "lat": 1.312240296316,
+    "lng": 103.796399122407
+  },
+  {
+    "postal": "298113",
+    "building": "CALDECOTT MRT STATION",
+    "block": "38",
+    "road": "TOA PAYOH RISE",
+    "lat": 1.3376745081562,
+    "lng": 103.839529820338
+  },
+  {
+    "postal": "307506",
+    "building": "Velocity @ Novena Square",
+    "block": "238",
+    "road": "Thomson Road",
+    "lat": 1.3204,
+    "lng": 103.8438
+  },
+  {
+    "postal": "307642",
+    "building": "NOVENA MRT STATION",
+    "block": "250",
+    "road": "THOMSON ROAD",
+    "lat": 1.32044079120159,
+    "lng": 103.843825618748
+  },
+  {
+    "postal": "319398",
+    "building": "TOA PAYOH MRT STATION",
+    "block": "510",
+    "road": "LORONG 6 TOA PAYOH",
+    "lat": 1.33262898752974,
+    "lng": 103.847501764246
+  },
+  {
+    "postal": "319756",
+    "building": "BRADDELL MRT STATION",
+    "block": "377",
+    "road": "LORONG 1 TOA PAYOH",
+    "lat": 1.34046900102774,
+    "lng": 103.846799083148
+  },
+  {
+    "postal": "328260",
+    "building": "BOON KENG MRT STATION",
+    "block": "900",
+    "road": "SERANGOON ROAD",
+    "lat": 1.31933570922515,
+    "lng": 103.861569454156
+  },
+  {
+    "postal": "339355",
+    "building": "GEYLANG BAHRU MRT STATION",
+    "block": "541",
+    "road": "KALLANG BAHRU",
+    "lat": 1.32130110228324,
+    "lng": 103.871622627142
+  },
+  {
+    "postal": "339356",
+    "building": "BENDEMEER MRT STATION",
+    "block": "11",
+    "road": "KALLANG BAHRU",
+    "lat": 1.31367252847692,
+    "lng": 103.862977620945
+  },
+  {
+    "postal": "347694",
+    "building": "POTONG PASIR MRT STATION",
+    "block": "55",
+    "road": "UPPER SERANGOON ROAD",
+    "lat": 1.33137952497763,
+    "lng": 103.869055665485
+  },
+  {
+    "postal": "347695",
+    "building": "WOODLEIGH MRT STATION",
+    "block": "400",
+    "road": "UPPER SERANGOON ROAD",
+    "lat": 1.33919004519393,
+    "lng": 103.87081830915
+  },
+  {
+    "postal": "378956",
+    "building": "MACPHERSON MRT STATION",
+    "block": "10",
+    "road": "CIRCUIT LINK",
+    "lat": 1.32615024293134,
+    "lng": 103.889298596024
+  },
+  {
+    "postal": "379314",
+    "building": "MATTAR MRT STATION",
+    "block": "60",
+    "road": "MERPATI ROAD",
+    "lat": 1.32687671501337,
+    "lng": 103.883247509542
+  },
+  {
+    "postal": "387405",
+    "building": "KALLANG MRT STATION",
+    "block": "5",
+    "road": "SIMS AVENUE",
+    "lat": 1.31148890998822,
+    "lng": 103.871386541754
+  },
+  {
+    "postal": "388310",
+    "building": "ALJUNIED MRT STATION",
+    "block": "81",
+    "road": "LORONG 25 GEYLANG",
+    "lat": 1.31643261181573,
+    "lng": 103.882906044385
+  },
+  {
+    "postal": "397692",
+    "building": "STADIUM MRT STATION",
+    "block": "3",
+    "road": "STADIUM WALK",
+    "lat": 1.30281246847074,
+    "lng": 103.875337711089
+  },
+  {
+    "postal": "397973",
+    "building": "DAKOTA MRT STATION",
+    "block": "201",
+    "road": "OLD AIRPORT ROAD",
+    "lat": 1.30854798388123,
+    "lng": 103.889064718377
+  },
+  {
+    "postal": "398006",
+    "building": "MOUNTBATTEN MRT STATION",
+    "block": "301",
+    "road": "MOUNTBATTEN ROAD",
+    "lat": 1.30620190525333,
+    "lng": 103.882528081052
+  },
+  {
+    "postal": "408553",
+    "building": "Challenger Techub",
+    "block": "1",
+    "road": "Ubi Link",
+    "lat": 1.332,
+    "lng": 103.8932
+  },
+  {
+    "postal": "408899",
+    "building": "UBI MRT STATION",
+    "block": "51",
+    "road": "UBI AVENUE 2",
+    "lat": 1.32997462900521,
+    "lng": 103.899226655449
+  },
+  {
+    "postal": "409006",
+    "building": "PAYA LEBAR MRT STATION",
+    "block": "30",
+    "road": "PAYA LEBAR ROAD",
+    "lat": 1.31811208187582,
+    "lng": 103.893060355199
+  },
+  {
+    "postal": "409423",
+    "building": "EUNOS MRT STATION",
+    "block": "30",
+    "road": "EUNOS CRESCENT",
+    "lat": 1.31978354779207,
+    "lng": 103.903225812967
+  },
+  {
+    "postal": "415804",
+    "building": "KAKI BUKIT MRT STATION",
+    "block": "30",
+    "road": "KAKI BUKIT AVENUE 1",
+    "lat": 1.33496730163706,
+    "lng": 103.908459734312
+  },
+  {
+    "postal": "416551",
+    "building": "KEMBANGAN MRT STATION",
+    "block": "55",
+    "road": "SIMS AVENUE EAST",
+    "lat": 1.32103824851416,
+    "lng": 103.912949388089
+  },
+  {
+    "postal": "467347",
+    "building": "BEDOK MRT STATION",
+    "block": "315",
+    "road": "NEW UPPER CHANGI ROAD",
+    "lat": 1.32397996868161,
+    "lng": 103.929984495066
+  },
+  {
+    "postal": "467356",
+    "building": "TANAH MERAH MRT STATION",
+    "block": "920",
+    "road": "NEW UPPER CHANGI ROAD",
+    "lat": 1.32718775009106,
+    "lng": 103.946348136559
+  },
+  {
+    "postal": "469724",
+    "building": "BEDOK RESERVOIR MRT STATION",
+    "block": "371",
+    "road": "BEDOK NORTH AVENUE 3",
+    "lat": 1.33660782955102,
+    "lng": 103.932234623286
+  },
+  {
+    "postal": "479481",
+    "building": "BEDOK NORTH MRT STATION",
+    "block": "651",
+    "road": "BEDOK NORTH ROAD",
+    "lat": 1.33474211664093,
+    "lng": 103.91797832995
+  },
+  {
+    "postal": "485985",
+    "building": "EXPO MRT STATION",
+    "block": "2",
+    "road": "EXPO DRIVE",
+    "lat": 1.33538252614957,
+    "lng": 103.962374747451
+  },
+  {
+    "postal": "485990",
+    "building": "UPPER CHANGI MRT STATION",
+    "block": "690",
+    "road": "UPPER CHANGI ROAD EAST",
+    "lat": 1.34173978431351,
+    "lng": 103.961472614026
+  },
+  {
+    "postal": "519634",
+    "building": "PASIR RIS MRT STATION",
+    "block": "10",
+    "road": "PASIR RIS CENTRAL",
+    "lat": 1.37304321206227,
+    "lng": 103.949284605816
+  },
+  {
+    "postal": "529536",
+    "building": "Tampines Mall",
+    "block": "4",
+    "road": "Tampines Central 5",
+    "lat": 1.3527,
+    "lng": 103.9452
+  },
+  {
+    "postal": "529538",
+    "building": "TAMPINES MRT STATION",
+    "block": "20",
+    "road": "TAMPINES CENTRAL 1",
+    "lat": 1.35330153265954,
+    "lng": 103.945144689278
+  },
+  {
+    "postal": "529623",
+    "building": "TAMPINES EAST MRT STATION",
+    "block": "20",
+    "road": "TAMPINES AVENUE 7",
+    "lat": 1.35619148271548,
+    "lng": 103.9546344625
+  },
+  {
+    "postal": "529683",
+    "building": "TAMPINES WEST MRT STATION",
+    "block": "2",
+    "road": "TAMPINES AVENUE 4",
+    "lat": 1.34551530560122,
+    "lng": 103.938436971222
+  },
+  {
+    "postal": "529888",
+    "building": "SIMEI MRT STATION",
+    "block": "30",
+    "road": "SIMEI STREET 3",
+    "lat": 1.34320289478118,
+    "lng": 103.953371694102
+  },
+  {
+    "postal": "530205",
+    "building": "NEX Shopping Mall",
+    "block": "23",
+    "road": "Serangoon Central",
+    "lat": 1.3506,
+    "lng": 103.8727
+  },
+  {
+    "postal": "534799",
+    "building": "KOVAN MRT STATION",
+    "block": "900",
+    "road": "UPPER SERANGOON ROAD",
+    "lat": 1.36017917065238,
+    "lng": 103.885064856353
+  },
+  {
+    "postal": "534801",
+    "building": "SERANGOON MRT STATION",
+    "block": "600",
+    "road": "UPPER SERANGOON ROAD",
+    "lat": 1.34970787487358,
+    "lng": 103.873574846893
+  },
+  {
+    "postal": "534803",
+    "building": "TAI SENG MRT STATION",
+    "block": "33",
+    "road": "UPPER PAYA LEBAR ROAD",
+    "lat": 1.33510208507523,
+    "lng": 103.88843301279
+  },
+  {
+    "postal": "536558",
+    "building": "Bartley Residences",
+    "block": "1",
+    "road": "Lorong How Sun",
+    "lat": 1.3438,
+    "lng": 103.8804
+  },
+  {
+    "postal": "538758",
+    "building": "HOUGANG MRT STATION",
+    "block": "80",
+    "road": "HOUGANG CENTRAL",
+    "lat": 1.37129229221246,
+    "lng": 103.892380518741
+  },
+  {
+    "postal": "539788",
+    "building": "BARTLEY MRT STATION",
+    "block": "90",
+    "road": "BARTLEY ROAD",
+    "lat": 1.34250117805246,
+    "lng": 103.880177899184
+  },
+  {
+    "postal": "545061",
+    "building": "BUANGKOK MRT STATION",
+    "block": "10",
+    "road": "SENGKANG CENTRAL",
+    "lat": 1.38287785835055,
+    "lng": 103.893121564391
+  },
+  {
+    "postal": "545062",
+    "building": "SENGKANG MRT STATION",
+    "block": "5",
+    "road": "SENGKANG SQUARE",
+    "lat": 1.39169462601523,
+    "lng": 103.895484694279
+  },
+  {
+    "postal": "554533",
+    "building": "LORONG CHUAN MRT STATION",
+    "block": "150",
+    "road": "SERANGOON AVENUE 3",
+    "lat": 1.35161217074559,
+    "lng": 103.864151938651
+  },
+  {
+    "postal": "569811",
+    "building": "ANG MO KIO MRT STATION",
+    "block": "2450",
+    "road": "ANG MO KIO AVENUE 8",
+    "lat": 1.36993317536445,
+    "lng": 103.849558130943
+  },
+  {
+    "postal": "569813",
+    "building": "YIO CHU KANG MRT STATION",
+    "block": "3000",
+    "road": "ANG MO KIO AVENUE 8",
+    "lat": 1.38175588659406,
+    "lng": 103.84494728206
+  },
+  {
+    "postal": "573993",
+    "building": "MARYMOUNT MRT STATION",
+    "block": "60",
+    "road": "MARYMOUNT ROAD",
+    "lat": 1.34870726345102,
+    "lng": 103.839423132332
+  },
+  {
+    "postal": "579827",
+    "building": "BISHAN MRT STATION",
+    "block": "200",
+    "road": "BISHAN ROAD",
+    "lat": 1.3508389878474,
+    "lng": 103.848143964542
+  },
+  {
+    "postal": "588216",
+    "building": "BEAUTY WORLD MRT STATION",
+    "block": "101",
+    "road": "UPPER BUKIT TIMAH ROAD",
+    "lat": 1.34122317558553,
+    "lng": 103.775794285083
+  },
+  {
+    "postal": "599987",
+    "building": "KING ALBERT PARK MRT STATION",
+    "block": "2",
+    "road": "BLACKMORE DRIVE",
+    "lat": 1.33566276229995,
+    "lng": 103.783399113418
+  },
+  {
+    "postal": "609690",
+    "building": "JURONG EAST MRT STATION",
+    "block": "10",
+    "road": "JURONG EAST STREET 12",
+    "lat": 1.33315261987297,
+    "lng": 103.742286544006
+  },
+  {
+    "postal": "609731",
+    "building": "Jem Shopping Mall",
+    "block": "50",
+    "road": "Jurong Gateway Road",
+    "lat": 1.3333,
+    "lng": 103.7436
+  },
+  {
+    "postal": "609959",
+    "building": "CHINESE GARDEN MRT STATION",
+    "block": "151",
+    "road": "BOON LAY WAY",
+    "lat": 1.34235282081403,
+    "lng": 103.732596738363
+  },
+  {
+    "postal": "629116",
+    "building": "JOO KOON MRT STATION",
+    "block": "91",
+    "road": "JOO KOON CIRCLE",
+    "lat": 1.32771717334029,
+    "lng": 103.678375143838
+  },
+  {
+    "postal": "637288",
+    "building": "GUL CIRCLE MRT STATION",
+    "block": "7A",
+    "road": "TUAS ROAD",
+    "lat": 1.319470868174,
+    "lng": 103.660530403418
+  },
+  {
+    "postal": "638418",
+    "building": "TUAS LINK MRT STATION",
+    "block": "20",
+    "road": "TUAS WEST DRIVE",
+    "lat": 1.34088242451108,
+    "lng": 103.636991425128
+  },
+  {
+    "postal": "639608",
+    "building": "TUAS CRESCENT MRT STATION",
+    "block": "90",
+    "road": "PIONEER ROAD",
+    "lat": 1.32102695188066,
+    "lng": 103.649078232635
+  },
+  {
+    "postal": "639609",
+    "building": "TUAS WEST ROAD MRT STATION",
+    "block": "131",
+    "road": "PIONEER ROAD",
+    "lat": 1.3299890890646,
+    "lng": 103.63961405628
+  },
+  {
+    "postal": "648310",
+    "building": "PIONEER MRT STATION",
+    "block": "31",
+    "road": "JURONG WEST STREET 63",
+    "lat": 1.33758688240768,
+    "lng": 103.697321513018
+  },
+  {
+    "postal": "649845",
+    "building": "LAKESIDE MRT STATION",
+    "block": "201",
+    "road": "BOON LAY WAY",
+    "lat": 1.34425913054043,
+    "lng": 103.720949076305
+  },
+  {
+    "postal": "649846",
+    "building": "BOON LAY MRT STATION",
+    "block": "301",
+    "road": "BOON LAY WAY",
+    "lat": 1.33860405469846,
+    "lng": 103.706064622772
+  },
+  {
+    "postal": "659083",
+    "building": "BUKIT GOMBAK MRT STATION",
+    "block": "802",
+    "road": "BUKIT BATOK WEST AVENUE 5",
+    "lat": 1.35861159094194,
+    "lng": 103.751790910733
+  },
+  {
+    "postal": "659958",
+    "building": "BUKIT BATOK MRT STATION",
+    "block": "10",
+    "road": "BUKIT BATOK CENTRAL",
+    "lat": 1.34903410858812,
+    "lng": 103.749566764129
+  },
+  {
+    "postal": "678211",
+    "building": "HILLVIEW MRT STATION",
+    "block": "510",
+    "road": "UPPER BUKIT TIMAH ROAD",
+    "lat": 1.3623448680356,
+    "lng": 103.767418254007
+  },
+  {
+    "postal": "678213",
+    "building": "BUKIT PANJANG MRT STATION",
+    "block": "950",
+    "road": "UPPER BUKIT TIMAH ROAD",
+    "lat": 1.37900211641038,
+    "lng": 103.761535114929
+  },
+  {
+    "postal": "679696",
+    "building": "CASHEW MRT STATION",
+    "block": "1",
+    "road": "CASHEW ROAD",
+    "lat": 1.36981544925554,
+    "lng": 103.76443921414
+  },
+  {
+    "postal": "689715",
+    "building": "YEW TEE MRT STATION",
+    "block": "61",
+    "road": "CHOA CHU KANG DRIVE",
+    "lat": 1.39753501762625,
+    "lng": 103.747405114336
+  },
+  {
+    "postal": "689810",
+    "building": "CHOA CHU KANG MRT STATION",
+    "block": "10",
+    "road": "CHOA CHU KANG AVENUE 4",
+    "lat": 1.38536316540226,
+    "lng": 103.744370779756
+  },
+  {
+    "postal": "737736",
+    "building": "WOODLANDS MRT STATION",
+    "block": "11",
+    "road": "WOODLANDS SQUARE",
+    "lat": 1.43606698186149,
+    "lng": 103.787930806962
+  },
+  {
+    "postal": "738099",
+    "building": "Causeway Point",
+    "block": "1",
+    "road": "Woodlands Square",
+    "lat": 1.4361,
+    "lng": 103.7859
+  },
+  {
+    "postal": "738344",
+    "building": "ADMIRALTY MRT STATION",
+    "block": "70",
+    "road": "WOODLANDS AVENUE 7",
+    "lat": 1.44058500086852,
+    "lng": 103.800988000403
+  },
+  {
+    "postal": "738702",
+    "building": "KRANJI MRT STATION",
+    "block": "960",
+    "road": "WOODLANDS ROAD",
+    "lat": 1.42508698073649,
+    "lng": 103.762137459497
+  },
+  {
+    "postal": "739044",
+    "building": "MARSILING MRT STATION",
+    "block": "71",
+    "road": "WOODLANDS AVENUE 3",
+    "lat": 1.4325211485503,
+    "lng": 103.774074641403
+  },
+  {
+    "postal": "759775",
+    "building": "SEMBAWANG MRT STATION",
+    "block": "11",
+    "road": "CANBERRA ROAD",
+    "lat": 1.44905082158503,
+    "lng": 103.820046140211
+  },
+  {
+    "postal": "769092",
+    "building": "KHATIB MRT STATION",
+    "block": "201",
+    "road": "YISHUN AVENUE 2",
+    "lat": 1.41738337009568,
+    "lng": 103.832979908243
+  },
+  {
+    "postal": "769093",
+    "building": "YISHUN MRT STATION",
+    "block": "301",
+    "road": "YISHUN AVENUE 2",
+    "lat": 1.42944308039361,
+    "lng": 103.83500504643
+  },
+  {
+    "postal": "819661",
+    "building": "CHANGI AIRPORT MRT STATION",
+    "block": "70",
+    "road": "AIRPORT BOULEVARD",
+    "lat": 1.35747897447696,
+    "lng": 103.98788356959
+  },
+  {
+    "postal": "828868",
+    "building": "PUNGGOL MRT STATION",
+    "block": "70",
+    "road": "PUNGGOL CENTRAL",
+    "lat": 1.40454672748107,
+    "lng": 103.902072638825
+  },
+  {
+    "postal": "038986",
+    "building": "Suntec City",
+    "block": "3",
+    "road": "Temasek Boulevard",
+    "lat": 1.2934,
+    "lng": 103.8569
+  },
+  {
+    "postal": "018972",
+    "building": "Marina Bay Sands",
+    "block": "10",
+    "road": "Bayfront Avenue",
+    "lat": 1.2828,
+    "lng": 103.8609
+  },
+  {
+    "postal": "098585",
+    "building": "VivoCity",
+    "block": "1",
+    "road": "HarbourFront Walk",
+    "lat": 1.2642,
+    "lng": 103.8223
+  },
+  {
+    "postal": "048618",
+    "building": "RAFFLES PLACE MRT STATION",
+    "block": "5",
+    "road": "RAFFLES PLACE",
+    "lat": 1.2841256104366,
+    "lng": 103.851461712342
+  },
+  {
+    "postal": "018925",
+    "building": "MARINA BAY MRT STATION",
+    "block": "21",
+    "road": "PARK STREET",
+    "lat": 1.27642735449345,
+    "lng": 103.854597777026
+  },
+  {
+    "postal": "018948",
+    "building": "MARINA SOUTH PIER MRT STATION",
+    "block": "33",
+    "road": "MARINA COASTAL DRIVE",
+    "lat": 1.2710270361201,
+    "lng": 103.862447515736
+  },
+  {
+    "postal": "069119",
+    "building": "TANJONG PAGAR MRT STATION",
+    "block": "120",
+    "road": "MAXWELL ROAD",
+    "lat": 1.2765613173725,
+    "lng": 103.845725186759
+  },
+  {
+    "postal": "059816",
+    "building": "OUTRAM PARK MRT STATION",
+    "block": "300",
+    "road": "EU TONG SEN STREET",
+    "lat": 1.27973970679336,
+    "lng": 103.839513521005
+  },
+  {
+    "postal": "098867",
+    "building": "HARBOURFRONT MRT STATION",
+    "block": "81",
+    "road": "TELOK BLANGAH ROAD",
+    "lat": 1.26538938402277,
+    "lng": 103.821530156823
+  },
+  {
+    "postal": "058362",
+    "building": "CHINATOWN MRT STATION",
+    "block": "91",
+    "road": "UPPER CROSS STREET",
+    "lat": 1.28422391919087,
+    "lng": 103.845143798953
+  },
+  {
+    "postal": "059815",
+    "building": "CLARKE QUAY MRT STATION",
+    "block": "10",
+    "road": "EU TONG SEN STREET",
+    "lat": 1.28838602407589,
+    "lng": 103.846555209694
+  },
+  {
+    "postal": "039193",
+    "building": "PROMENADE MRT STATION",
+    "block": "2",
+    "road": "TEMASEK AVENUE",
+    "lat": 1.29399856913986,
+    "lng": 103.860350000195
+  },
+  {
+    "postal": "038970",
+    "building": "NICOLL HIGHWAY MRT STATION",
+    "block": "20",
+    "road": "REPUBLIC AVENUE",
+    "lat": 1.29976683498024,
+    "lng": 103.863637018754
+  },
+  {
+    "postal": "018957",
+    "building": "BAYFRONT MRT STATION",
+    "block": "11",
+    "road": "BAYFRONT AVENUE",
+    "lat": 1.2818737887921,
+    "lng": 103.859079764874
+  },
+  {
+    "postal": "018969",
+    "building": "DOWNTOWN MRT STATION",
+    "block": "15",
+    "road": "CENTRAL BOULEVARD",
+    "lat": 1.27944619017902,
+    "lng": 103.852840444471
+  },
+  {
+    "postal": "048416",
+    "building": "TELOK AYER MRT STATION",
+    "block": "7",
+    "road": "CROSS STREET",
+    "lat": 1.28206894769397,
+    "lng": 103.848648781083
+  }
+]

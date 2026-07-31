@@ -21,7 +21,18 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
 
-const LIVE_LISTING_STATUSES = ["approved", "active", "published"] as const;
+const LIVE_LISTING_STATUSES = [
+  "approved",
+  "Approved",
+  "active",
+  "Active",
+  "published",
+  "Published",
+  "live",
+  "Live",
+  "visible",
+  "Visible",
+] as const;
 
 const formatTime = (time: string) => {
   if (!time) return "";

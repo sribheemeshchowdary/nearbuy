@@ -8,7 +8,18 @@ import { Button } from "@/components/ui/button";
 import { Download, Loader2, RefreshCw, FileText } from "lucide-react";
 
 const DOMAIN = "https://nearbuy.sg";
-const LIVE_LISTING_STATUSES = ["approved", "active", "published"] as const;
+const LIVE_LISTING_STATUSES = [
+  "approved",
+  "Approved",
+  "active",
+  "Active",
+  "published",
+  "Published",
+  "live",
+  "Live",
+  "visible",
+  "Visible",
+] as const;
 
 const CATEGORIES = [
   "Tuition", "Baking", "Music, Art & Craft", "Home Food", "Wellness", "Beauty",

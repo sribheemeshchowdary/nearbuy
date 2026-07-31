@@ -12,7 +12,18 @@ import ListingCard, { type Listing } from "@/components/ListingCard";
 import { getBusinessUrl, toSlug } from "@/lib/url-helpers";
 import SEOHead from "@/components/SEOHead";
 
-const LIVE_LISTING_STATUSES = ["approved", "active", "published"] as const;
+const LIVE_LISTING_STATUSES = [
+  "approved",
+  "Approved",
+  "active",
+  "Active",
+  "published",
+  "Published",
+  "live",
+  "Live",
+  "visible",
+  "Visible",
+] as const;
 
 // Category images
 import tuitionImg from "@/assets/categories/education.webp";

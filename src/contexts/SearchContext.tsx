@@ -2,7 +2,18 @@ import { createContext, useContext, useState, useEffect, type ReactNode } from "
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
-const LIVE_LISTING_STATUSES = ["approved", "active", "published"] as const;
+const LIVE_LISTING_STATUSES = [
+  "approved",
+  "Approved",
+  "active",
+  "Active",
+  "published",
+  "Published",
+  "live",
+  "Live",
+  "visible",
+  "Visible",
+] as const;
 
 export interface SearchableListing {
   id: string;

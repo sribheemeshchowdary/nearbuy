@@ -39,7 +39,18 @@ service cloud.firestore {
     }
 
     function isPublicListingStatus(status) {
-      return status in ["approved", "active", "published"];
+      return status in [
+        "approved",
+        "Approved",
+        "active",
+        "Active",
+        "published",
+        "Published",
+        "live",
+        "Live",
+        "visible",
+        "Visible"
+      ];
     }
 
     // ── Social URL validation ──────────────────────────────────

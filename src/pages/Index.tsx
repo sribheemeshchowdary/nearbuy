@@ -32,7 +32,18 @@ import { SINGAPORE_DISTRICTS, BUSINESS_CATEGORIES, DISTRICT_COORDINATES } from "
 import { toast } from "sonner";
 type ApproximateIpLocation = { lat: number; lng: number };
 let approximateIpLocationPromise: Promise<ApproximateIpLocation | null> | null = null;
-const LIVE_LISTING_STATUSES = ["approved", "active", "published"] as const;
+const LIVE_LISTING_STATUSES = [
+  "approved",
+  "Approved",
+  "active",
+  "Active",
+  "published",
+  "Published",
+  "live",
+  "Live",
+  "visible",
+  "Visible",
+] as const;
 
 /**
  * GeoJS supports browser requests and is cached for the lifetime of this page,

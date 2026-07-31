@@ -50,7 +50,19 @@ export interface Listing {
   website?: string;
   email?: string;
   description?: string;
-  status: "pending_approval" | "approved" | "active" | "published" | "rejected";
+  status:
+    | "pending_approval"
+    | "approved"
+    | "Approved"
+    | "active"
+    | "Active"
+    | "published"
+    | "Published"
+    | "live"
+    | "Live"
+    | "visible"
+    | "Visible"
+    | "rejected";
   rejectionReason?: string;
   ownerId: string;
   documentsUrl?: string[];

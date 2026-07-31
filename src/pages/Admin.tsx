@@ -145,7 +145,7 @@ interface AppUser {
   disabled?: boolean;
 }
 type EnquiryStatus = "unread" | "contacted" | "qualified" | "not_qualified" | "converted" | "spam";
-const isLiveListingStatus = (status?: string) => status === "approved" || status === "active" || status === "published";
+const isLiveListingStatus = (status?: string) => ["approved", "active", "published", "live", "visible"].includes((status || "").toLowerCase());
 
 const ENQUIRY_STATUSES: { key: EnquiryStatus; label: string; color: string; dot: string }[] = [
   { key: "unread", label: "New", color: "bg-[hsl(220,70%,93%)] text-[hsl(220,70%,35%)]", dot: "bg-[hsl(220,70%,50%)]" },
@@ -1804,8 +1804,15 @@ const Admin = () => {
                     {filteredAllListings.map((l) => {
                       const statusMap: Record<string, { bg: string; text: string; label: string }> = {
                         approved: { bg: "bg-emerald-500/10", text: "text-emerald-600", label: "Live" },
+                        Approved: { bg: "bg-emerald-500/10", text: "text-emerald-600", label: "Live" },
                         active: { bg: "bg-emerald-500/10", text: "text-emerald-600", label: "Live" },
+                        Active: { bg: "bg-emerald-500/10", text: "text-emerald-600", label: "Live" },
                         published: { bg: "bg-emerald-500/10", text: "text-emerald-600", label: "Live" },
+                        Published: { bg: "bg-emerald-500/10", text: "text-emerald-600", label: "Live" },
+                        live: { bg: "bg-emerald-500/10", text: "text-emerald-600", label: "Live" },
+                        Live: { bg: "bg-emerald-500/10", text: "text-emerald-600", label: "Live" },
+                        visible: { bg: "bg-emerald-500/10", text: "text-emerald-600", label: "Live" },
+                        Visible: { bg: "bg-emerald-500/10", text: "text-emerald-600", label: "Live" },
                         pending_approval: { bg: "bg-amber-500/10", text: "text-amber-600", label: "Pending" },
                         rejected: { bg: "bg-rose-500/10", text: "text-rose-600", label: "Rejected" },
                       };

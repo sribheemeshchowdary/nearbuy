@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nearbuy - Loading</title>
+  </head>
+  <body>
+    <noscript>
+      This page needs JavaScript. Please open <a href="/">Nearbuy</a>.
+    </noscript>
+    <script>
+      /*
+       * Static-host fallback for React Router deep links.
+       *
+       * Some hosts return /404.html for routes like /admin or
+       * /singapore/category/business after refresh. Instead of showing a hard
+       * 404, load the SPA entry document and keep the original browser URL so
+       * React Router can render the correct page.
+       */
+      fetch("/index.html", { cache: "no-store" })
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("Could not load app shell");
+          }
+          return response.text();
+        })
+        .then(function (html) {
+          document.open();
+          document.write(html);
+          document.close();
+        })
+        .catch(function () {
+          window.location.replace("/");
+        });
+    </script>
+  </body>
+</html>

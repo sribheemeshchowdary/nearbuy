@@ -7,7 +7,7 @@ import { Loader2, MapPin } from "lucide-react";
 import { useEffect, useState, useCallback, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
-interface MapViewProps {
+export interface MapViewProps {
   listings: Listing[];
   selectedId?: string;
   hoveredId?: string | null;

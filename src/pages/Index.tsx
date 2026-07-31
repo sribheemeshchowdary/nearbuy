@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import { lazy, Suspense, useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { useGoogleOneTap } from "@/hooks/useGoogleOneTap";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useSearch } from "@/contexts/SearchContext";
@@ -11,14 +11,13 @@ import FeaturedListings from "@/components/FeaturedListings";
 import CategoryHighlights from "@/components/CategoryHighlights";
 import CategoryGrid from "@/components/CategoryGrid";
 
-import MapView from "@/components/MapView";
+import type { MapViewProps } from "@/components/MapView";
 import { Link, useNavigate } from "react-router-dom";
 import { getBusinessUrl } from "@/lib/url-helpers";
 import MobileHome from "@/components/MobileHome";
 import MobileFiltersMap from "@/components/MobileFiltersMap";
 import DistanceFilterCard, { type ActiveChip } from "@/components/DistanceFilterCard";
 import { MapPin, SlidersHorizontal, Search, Map as MapIcon, ChevronRight, Clock, ArrowUpDown } from "lucide-react";
-import { geocodeSingaporePostalCode } from "@/lib/geocode-pincode";
 import { getDistance } from "@/lib/utils";
 import { listingMatchesSearch } from "@/lib/listing-search";
 import { chunkListingStatusesForFirestore, isPubliclyVisibleListing } from "@/lib/listing-status";
@@ -31,6 +30,47 @@ import {
 } from "@/components/ui/select";
 import { SINGAPORE_DISTRICTS, BUSINESS_CATEGORIES, DISTRICT_COORDINATES } from "@/lib/districts";
 import { toast } from "sonner";
+
+const MapView = lazy(() => import("@/components/MapView"));
+
+const MapPlaceholder = () => (
+  <div className="w-full h-full flex items-center justify-center bg-secondary rounded-xl border border-border/60">
+    <div className="text-center text-muted-foreground">
+      <div className="w-8 h-8 rounded-full border-2 border-primary/30 border-t-primary animate-spin mx-auto mb-3" />
+      <p className="text-sm font-medium">Loading map…</p>
+    </div>
+  </div>
+);
+
+const DeferredMapView = (props: MapViewProps) => {
+  const [shouldLoadMap, setShouldLoadMap] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const load = () => setShouldLoadMap(true);
+    const win = window as Window & {
+      requestIdleCallback?: (callback: () => void, options?: { timeout?: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+
+    if (win.requestIdleCallback) {
+      const idleId = win.requestIdleCallback(load, { timeout: 1200 });
+      return () => win.cancelIdleCallback?.(idleId);
+    }
+
+    const timeoutId = window.setTimeout(load, 600);
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
+  if (!shouldLoadMap) return <MapPlaceholder />;
+
+  return (
+    <Suspense fallback={<MapPlaceholder />}>
+      <MapView {...props} />
+    </Suspense>
+  );
+};
 type ApproximateIpLocation = { lat: number; lng: number };
 let approximateIpLocationPromise: Promise<ApproximateIpLocation | null> | null = null;
 
@@ -482,10 +522,22 @@ const Index = ({ showMap, setShowMap, registerDetectLocation }: IndexProps) => {
   // Auto-detect high-accuracy location on initial load
   const hasAutoDetected = useRef(false);
   useEffect(() => {
-    if (!hasAutoDetected.current) {
-      hasAutoDetected.current = true;
-      handleDetectLocation(true);
+    if (hasAutoDetected.current || typeof window === "undefined") return;
+    hasAutoDetected.current = true;
+
+    const win = window as Window & {
+      requestIdleCallback?: (callback: () => void, options?: { timeout?: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    const detect = () => void handleDetectLocation(true);
+
+    if (win.requestIdleCallback) {
+      const idleId = win.requestIdleCallback(detect, { timeout: 2500 });
+      return () => win.cancelIdleCallback?.(idleId);
     }
+
+    const timeoutId = window.setTimeout(detect, 1500);
+    return () => window.clearTimeout(timeoutId);
   }, [handleDetectLocation]);
 
 
@@ -774,7 +826,7 @@ const Index = ({ showMap, setShowMap, registerDetectLocation }: IndexProps) => {
       {/* ═══ MOBILE LAYOUT (≤ 768px) — faithful spec rebuild ═══ */}
       <div className="md:hidden">
         <MobileHome
-          map={<MapView listings={sortedFiltered} selectedId={selectedListing?.id} hoveredId={hoveredListingId} onHoverListing={setHoveredListingId} onSelectListing={(l) => selectListing(l, true)} center={mapCenter} radiusKm={radiusKm} origin={filterOrigin} />}
+          map={<DeferredMapView listings={sortedFiltered} selectedId={selectedListing?.id} hoveredId={hoveredListingId} onHoverListing={setHoveredListingId} onSelectListing={(l) => selectListing(l, true)} center={mapCenter} radiusKm={radiusKm} origin={filterOrigin} />}
           listings={sortedFiltered}
           resultsCount={sortedFiltered.length}
           loading={isFetchingListings}
@@ -954,7 +1006,7 @@ const Index = ({ showMap, setShowMap, registerDetectLocation }: IndexProps) => {
             <div className="w-[62%] pl-4">
               <div className="sticky" style={{ top: STICKY_TOP_DESKTOP }}>
                 <div className="w-full rounded-2xl overflow-hidden border border-border/60 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.08)]" style={{ height: MAP_HEIGHT.desktop }}>
-                  <MapView
+                  <DeferredMapView
                     listings={sortedFiltered}
                     selectedId={selectedListing?.id}
                     hoveredId={hoveredListingId}

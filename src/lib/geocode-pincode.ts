@@ -26,7 +26,7 @@ export interface GeocodeResult {
 }
 
 /** Build the canonical "PostalCode, Building, Block N Road, Singapore" string. */
-export function formatSgAddress(r: Pick<GeocodeResult, "building" | "block" | "road" | "postal">): string {
+export function formatSgAddress(r: Pick<GeocodeResult, "building" | "block" | "road" | "postal"> & Partial<Pick<GeocodeResult, "matchQuality">>): string {
   const parts: string[] = [];
   if (r.postal) parts.push(r.postal);
   if (r.building) parts.push(r.building);

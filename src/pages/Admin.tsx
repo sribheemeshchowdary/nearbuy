@@ -351,28 +351,60 @@ const Admin = () => {
   }, [authLoading, user, isAdmin]);
 
   const fetchData = async () => {
-    // Never retain enquiry data in the Super Admin session.
-    setEnquiries([]);
+    setLoading(true);
     try {
-      const allSnap = await getDocs(collection(db, "listings"));
-      const all = allSnap.docs.map((d) => ({ id: d.id, ...d.data() } as Listing));
-      setAllListings(all);
-      setPendingListings(all.filter((l) => l.status === "pending_approval"));
-      try {
-        const uSnap = await getDocs(collection(db, "users"));
-        setAppUsers(uSnap.docs.map((d) => ({ id: d.id, ...d.data() } as AppUser)));
-      } catch {}
-      try {
-        const aSnap = await getDocs(collection(db, "admins"));
-        setAdminUids(new Set(aSnap.docs.map((d) => d.id)));
-      } catch {}
-      try {
-        const sSnap = await getDocs(collection(db, "superadmins"));
-        setSuperadminUids(new Set(sSnap.docs.map((d) => d.id)));
-      } catch {}
-    } catch {
-      setAllListings([]);
-      setPendingListings([]);
+      const [listingsRes, enquiriesRes, usersRes, adminsRes, superadminsRes] = await Promise.allSettled([
+        getDocs(collection(db, "listings")),
+        getDocs(collection(db, "enquiries")),
+        getDocs(collection(db, "users")),
+        getDocs(collection(db, "admins")),
+        getDocs(collection(db, "superadmins")),
+      ]);
+
+      if (listingsRes.status === "fulfilled") {
+        const all = listingsRes.value.docs.map((d) => ({ id: d.id, ...d.data() } as Listing));
+        setAllListings(all);
+        setPendingListings(all.filter((l) => l.status === "pending_approval"));
+      } else {
+        setAllListings([]);
+        setPendingListings([]);
+        console.debug("Failed to load admin listings", listingsRes.reason);
+      }
+
+      if (enquiriesRes.status === "fulfilled") {
+        const loadedEnquiries = enquiriesRes.value.docs.map((d) => {
+          const data = d.data() as Partial<Enquiry>;
+          return {
+            id: d.id,
+            listingId: data.listingId || "",
+            listingName: data.listingName || "Unknown listing",
+            name: data.name || "Unknown customer",
+            email: data.email || "",
+            phone: data.phone || "",
+            message: data.message || "",
+            status: (data.status || "unread") as EnquiryStatus,
+            createdAt: data.createdAt || null,
+          };
+        });
+        setEnquiries(loadedEnquiries);
+      } else {
+        setEnquiries([]);
+        console.debug("Failed to load admin enquiries", enquiriesRes.reason);
+      }
+
+      if (usersRes.status === "fulfilled") {
+        setAppUsers(usersRes.value.docs.map((d) => ({ id: d.id, ...d.data() } as AppUser)));
+      }
+
+      if (adminsRes.status === "fulfilled") {
+        setAdminUids(new Set(adminsRes.value.docs.map((d) => d.id)));
+      }
+
+      if (superadminsRes.status === "fulfilled") {
+        setSuperadminUids(new Set(superadminsRes.value.docs.map((d) => d.id)));
+      }
+    } catch (err) {
+      console.debug("Failed to load admin data", err);
     }
     setLoading(false);
   };
@@ -544,7 +576,7 @@ const Admin = () => {
     if (!editingListing) return;
     setAdminSaving(true);
     try {
-      const updates = { ...adminEditData, previousApproved: {} };
+      const updates: Record<string, any> = { ...adminEditData, previousApproved: {} };
       // 1. Update listing document
       await updateDoc(doc(db, "listings", editingListing.id), updates);
 

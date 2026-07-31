@@ -2,6 +2,8 @@ import { createContext, useContext, useState, useEffect, type ReactNode } from "
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
+const LIVE_LISTING_STATUSES = ["approved", "active", "published"] as const;
+
 export interface SearchableListing {
   id: string;
   name: string;
@@ -124,7 +126,7 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const q = query(collection(db, "listings"), where("status", "==", "approved"));
+        const q = query(collection(db, "listings"), where("status", "in", LIVE_LISTING_STATUSES));
         const snap = await getDocs(q);
         if (!snap.empty) {
           const data = snap.docs.map((doc) => {

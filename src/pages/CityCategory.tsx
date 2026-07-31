@@ -12,6 +12,8 @@ import ListingCard, { type Listing } from "@/components/ListingCard";
 import { getBusinessUrl, toSlug } from "@/lib/url-helpers";
 import SEOHead from "@/components/SEOHead";
 
+const LIVE_LISTING_STATUSES = ["approved", "active", "published"] as const;
+
 // Category images
 import tuitionImg from "@/assets/categories/education.webp";
 import bakingImg from "@/assets/categories/food.webp";
@@ -155,11 +157,12 @@ const CityCategory = () => {
   const city = getCityBySlug(citySlug || "singapore");
   const activeSub = searchParams.get("sub");
 
-  // Fetch approved listings from Firestore
+  // Fetch live listings from Firestore, including older records that used
+  // legacy live statuses before the current "approved" workflow.
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const q = query(collection(db, "listings"), where("status", "==", "approved"));
+        const q = query(collection(db, "listings"), where("status", "in", LIVE_LISTING_STATUSES));
         const snap = await getDocs(q);
         if (!snap.empty) {
           const data = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Listing));

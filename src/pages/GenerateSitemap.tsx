@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Download, Loader2, RefreshCw, FileText } from "lucide-react";
 
 const DOMAIN = "https://nearbuy.sg";
+const LIVE_LISTING_STATUSES = ["approved", "active", "published"] as const;
 
 const CATEGORIES = [
   "Tuition", "Baking", "Music, Art & Craft", "Home Food", "Wellness", "Beauty",
@@ -49,7 +50,7 @@ export default function GenerateSitemap() {
   const generate = async () => {
     setLoading(true);
     try {
-      const snap = await getDocs(query(collection(db, "listings"), where("status", "==", "approved")));
+      const snap = await getDocs(query(collection(db, "listings"), where("status", "in", LIVE_LISTING_STATUSES)));
       const listings = snap.docs.map((d) => ({ ...d.data() } as ListingData));
 
       const urls: string[] = [];

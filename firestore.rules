@@ -38,6 +38,10 @@ service cloud.firestore {
       return isSignedIn() && request.auth.uid == ownerId;
     }
 
+    function isPublicListingStatus(status) {
+      return status in ["approved", "active", "published"];
+    }
+
     // ── Social URL validation ──────────────────────────────────
     function isValidSocialUrl(field) {
       return !(field in request.resource.data)
@@ -123,7 +127,7 @@ service cloud.firestore {
     }
 
     match /listings/{listingId} {
-      allow read: if resource.data.status == "approved"
+      allow read: if isPublicListingStatus(resource.data.status)
                   || (isSignedIn() && resource.data.ownerId == request.auth.uid)
                   || isAdmin();
 

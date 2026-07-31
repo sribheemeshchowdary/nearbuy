@@ -99,12 +99,15 @@ const ChangePasswordForm = () => {
 
 const statusConfig: Record<string, { variant: "approved" | "pending" | "rejected"; label: string; dotColor: string }> = {
   approved: { variant: "approved", label: "Live", dotColor: "bg-emerald-500" },
+  active: { variant: "approved", label: "Live", dotColor: "bg-emerald-500" },
+  published: { variant: "approved", label: "Live", dotColor: "bg-emerald-500" },
   pending_approval: { variant: "pending", label: "In Review", dotColor: "bg-amber-500" },
   rejected: { variant: "rejected", label: "Rejected", dotColor: "bg-red-500" },
 };
 
 const FALLBACK_STATUS_CONFIG = { variant: "pending" as const, label: "Unknown", dotColor: "bg-muted-foreground" };
 const getStatusConfig = (status: string) => statusConfig[status] ?? FALLBACK_STATUS_CONFIG;
+const isLiveListingStatus = (status?: string) => status === "approved" || status === "active" || status === "published";
 
 type DashTab = "dashboard" | "listings" | "enquiries" | "catalogue" | "featured" | "hours" | "analytics" | "settings";
 
@@ -356,7 +359,7 @@ const BusinessDashboard = () => {
 
   const stats = useMemo(() => ({
     total: listings.length,
-    approved: listings.filter(l => l.status === "approved").length,
+    approved: listings.filter(l => isLiveListingStatus(l.status)).length,
     pending: listings.filter(l => l.status === "pending_approval").length,
     rejected: listings.filter(l => l.status === "rejected").length,
   }), [listings]);

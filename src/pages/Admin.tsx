@@ -145,6 +145,7 @@ interface AppUser {
   disabled?: boolean;
 }
 type EnquiryStatus = "unread" | "contacted" | "qualified" | "not_qualified" | "converted" | "spam";
+const isLiveListingStatus = (status?: string) => status === "approved" || status === "active" || status === "published";
 
 const ENQUIRY_STATUSES: { key: EnquiryStatus; label: string; color: string; dot: string }[] = [
   { key: "unread", label: "New", color: "bg-[hsl(220,70%,93%)] text-[hsl(220,70%,35%)]", dot: "bg-[hsl(220,70%,50%)]" },
@@ -624,7 +625,7 @@ const Admin = () => {
   const stats = useMemo(() => ({
     total: allListings.length,
     pending: pendingListings.length,
-    approved: allListings.filter((l) => l.status === "approved").length,
+    approved: allListings.filter((l) => isLiveListingStatus(l.status)).length,
     rejected: allListings.filter((l) => l.status === "rejected").length,
     enquiries: enquiries.length,
     unreadEnquiries: enquiries.filter((e) => e.status === "unread").length,
@@ -1788,6 +1789,8 @@ const Admin = () => {
                     {filteredAllListings.map((l) => {
                       const statusMap: Record<string, { bg: string; text: string; label: string }> = {
                         approved: { bg: "bg-emerald-500/10", text: "text-emerald-600", label: "Live" },
+                        active: { bg: "bg-emerald-500/10", text: "text-emerald-600", label: "Live" },
+                        published: { bg: "bg-emerald-500/10", text: "text-emerald-600", label: "Live" },
                         pending_approval: { bg: "bg-amber-500/10", text: "text-amber-600", label: "Pending" },
                         rejected: { bg: "bg-rose-500/10", text: "text-rose-600", label: "Rejected" },
                       };

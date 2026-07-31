@@ -32,6 +32,7 @@ import { SINGAPORE_DISTRICTS, BUSINESS_CATEGORIES, DISTRICT_COORDINATES } from "
 import { toast } from "sonner";
 type ApproximateIpLocation = { lat: number; lng: number };
 let approximateIpLocationPromise: Promise<ApproximateIpLocation | null> | null = null;
+const LIVE_LISTING_STATUSES = ["approved", "active", "published"] as const;
 
 /**
  * GeoJS supports browser requests and is cached for the lifetime of this page,
@@ -548,7 +549,7 @@ const Index = ({ showMap, setShowMap, registerDetectLocation }: IndexProps) => {
     // "0 businesses" if Safari's first Firestore connection isn't ready yet),
     // onSnapshot waits for the connection and delivers data as soon as it's
     // available — no manual reload needed — and keeps the list live.
-    const q = query(collection(db, "listings"), where("status", "==", "approved"));
+    const q = query(collection(db, "listings"), where("status", "in", LIVE_LISTING_STATUSES));
     const unsub = onSnapshot(
       q,
       (snap) => {

@@ -21,6 +21,8 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
 
+const LIVE_LISTING_STATUSES = ["approved", "active", "published"] as const;
+
 const formatTime = (time: string) => {
   if (!time) return "";
   const [h, m] = time.split(":").map(Number);
@@ -61,8 +63,9 @@ const BusinessDetail = () => {
 
     const fetchListing = async () => {
       try {
-        // Public path: approved listings, visible to everyone.
-        const q = query(collection(db, "listings"), where("status", "==", "approved"));
+        // Public path: live listings, including older Firebase records that
+        // used legacy live statuses before the current approval workflow.
+        const q = query(collection(db, "listings"), where("status", "in", LIVE_LISTING_STATUSES));
         const snap = await getDocs(q);
         const match = snap.docs
           .map(d => ({ id: d.id, ...d.data() } as Listing))
@@ -86,7 +89,7 @@ const BusinessDetail = () => {
             .find(slugMatch);
           if (ownMatch) {
             setFirestoreListing(ownMatch);
-            setIsPreview(ownMatch.status !== "approved");
+            setIsPreview(!LIVE_LISTING_STATUSES.includes(ownMatch.status as any));
           }
         }
       } catch { /* fallback */ }

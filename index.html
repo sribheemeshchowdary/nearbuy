@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <!-- Fonts: preconnect + a single combined request for faster first paint -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" />
+    <title>Nearbuy — Singapore Business Directory</title>
+    <meta name="description" content="Find trusted, verified businesses across Singapore. Browse by district, category, and more.">
+    <meta name="author" content="Nearbuy" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d59da546-9568-42d3-b0f8-b0b4effef550/id-preview-8bad13f8--6aac849e-be18-4524-ba83-71f8d09d630f.lovable.app-1780218944977.png">
+  <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d59da546-9568-42d3-b0f8-b0b4effef550/id-preview-8bad13f8--6aac849e-be18-4524-ba83-71f8d09d630f.lovable.app-1780218944977.png">
+  <script>
+    var isLocalDevelopment = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    if (isLocalDevelopment) {
+      window.addEventListener('error', function(e) {
+        showErrorOverlay('Runtime Error', e.message + ' at ' + e.filename + ':' + e.lineno);
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        showErrorOverlay('Promise Rejection', e.reason ? (e.reason.message || e.reason) : 'Unknown promise rejection');
+      });
+    }
+    function showErrorOverlay(title, msg) {
+      var container = document.getElementById('error-overlay');
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'error-overlay';
+        container.style = 'position:fixed;top:0;left:0;width:100%;height:100%;background:#fff5f5;color:#c53030;padding:24px;font-family:monospace;z-index:999999;box-sizing:border-box;overflow:auto;border:4px solid #f56565;';
+        document.body.appendChild(container);
+      }
+      container.innerHTML = '<h1 style="margin:0 0 16px;font-size:24px;border-bottom:2px solid #feb2b2;padding-bottom:8px;">⚠️ ' + title + '</h1>' +
+                            '<p style="font-size:16px;white-space:pre-wrap;background:#fff;padding:16px;border-radius:8px;border:1px solid #fed7d7;line-height:1.5;">' + msg + '</p>' +
+                            '<p style="font-size:12px;color:#718096;margin-top:16px;">Please capture this screen or report this error to resolve the blank page.</p>';
+    }
+  </script>
+  <meta property="og:title" content="Nearbuy — Singapore Business Directory">
+  <meta name="twitter:title" content="Nearbuy — Singapore Business Directory">
+  <meta property="og:description" content="Find trusted, verified businesses across Singapore. Browse by district, category, and more.">
+  <meta name="twitter:description" content="Find trusted, verified businesses across Singapore. Browse by district, category, and more.">
+</head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

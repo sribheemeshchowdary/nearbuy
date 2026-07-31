@@ -1,0 +1,264 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Auth helpers ───────────────────────────────────────────
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isEmailVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    // Emails that are always super admins (keep in sync with AuthContext.tsx).
+    function isSuperAdminEmail() {
+      return isSignedIn()
+        && request.auth.token.email in [
+             'ravikanth.revuru@gmail.com',
+             'harshu.18@gmail.com',
+             'findlocalsg@gmail.com'
+           ];
+    }
+
+    function isSuperAdmin() {
+      return isSignedIn()
+        && (exists(/databases/$(database)/documents/superadmins/$(request.auth.uid))
+            || isSuperAdminEmail());
+    }
+
+    function isAdmin() {
+      return isSuperAdmin()
+        || (isSignedIn()
+            && exists(/databases/$(database)/documents/admins/$(request.auth.uid)));
+    }
+
+    function isOwner(ownerId) {
+      return isSignedIn() && request.auth.uid == ownerId;
+    }
+
+    // ── Social URL validation ──────────────────────────────────
+    function isValidSocialUrl(field) {
+      return !(field in request.resource.data)
+             || request.resource.data[field] == null
+             || (request.resource.data[field] is string
+                 && request.resource.data[field].size() <= 300);
+    }
+
+    function hasValidSocialProfiles() {
+      return isValidSocialUrl('instagramUrl')
+             && isValidSocialUrl('xUrl')
+             && isValidSocialUrl('youtubeUrl');
+    }
+
+    // ── String field helper ────────────────────────────────────
+    function isValidString(field, maxLen) {
+      return request.resource.data[field] is string
+             && request.resource.data[field].size() > 0
+             && request.resource.data[field].size() <= maxLen;
+    }
+
+    function isValidBusinessCategory() {
+      return request.resource.data.category in [
+        'Tuition',
+        'Baking',
+        'Music/Art/Craft',
+        'Home Food',
+        'Wellness',
+        'Beauty',
+        'Pet Services',
+        'Event Services',
+        'Tailoring',
+        'Cleaning',
+        'Handyman',
+        'Photography / Videography',
+        'Sports',
+        'Retail'
+      ]
+      || (
+        exists(/databases/$(database)/documents/configuration/categoryCatalog)
+        && request.resource.data.category
+           in get(/databases/$(database)/documents/configuration/categoryCatalog).data.categoryNames
+      );
+    }
+
+    // ══════════════════════════════════════════════════════════
+    // COLLECTIONS
+    // ══════════════════════════════════════════════════════════
+
+    match /configuration/{configId} {
+      allow read: if configId == 'categoryCatalog';
+      allow create, update: if configId == 'categoryCatalog'
+                            && isSuperAdmin()
+                            && request.resource.data.categories is list
+                            && request.resource.data.categoryNames is list
+                            && request.resource.data.categories.size() > 0
+                            && request.resource.data.categories.size() <= 100
+                            && request.resource.data.categoryNames.size()
+                               == request.resource.data.categories.size()
+                            && request.resource.data.updatedBy == request.auth.uid;
+      allow delete: if false;
+    }
+
+    match /superadmins/{uid} {
+      allow read: if isSignedIn() && (request.auth.uid == uid || isSuperAdmin());
+      // Super admins can promote/demote other super admins. The email allowlist
+      // (isSuperAdminEmail) super admins always remain — they have no doc here.
+      allow create, delete: if isSuperAdmin();
+      allow update: if false;
+    }
+
+    match /admins/{uid} {
+      allow read: if isSignedIn() && (request.auth.uid == uid || isSuperAdmin());
+      allow create, delete: if isSuperAdmin();
+      allow update: if false;
+    }
+
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId) || isAdmin();
+      allow delete: if isSuperAdmin();
+    }
+
+    match /listings/{listingId} {
+      allow read: if resource.data.status == "approved"
+                  || (isSignedIn() && resource.data.ownerId == request.auth.uid)
+                  || isAdmin();
+
+      allow create: if isValidString('name', 150)
+                    && isValidString('category', 100)
+                    && isValidBusinessCategory()
+                    && hasValidSocialProfiles()
+                    && (
+                      isAdmin()
+                      || (
+                        isEmailVerified()
+                        && request.resource.data.ownerId == request.auth.uid
+                        && request.resource.data.status == "pending_approval"
+                      )
+                    );
+
+      allow update: if isAdmin()
+                    || (
+                      isSignedIn()
+                      && resource.data.ownerId == request.auth.uid
+                      && request.resource.data.ownerId == resource.data.ownerId
+                      && (
+                        request.resource.data.status == "pending_approval"
+                        || request.resource.data.status == resource.data.status
+                      )
+                      && isValidBusinessCategory()
+                      // Owners may not grant themselves verified/featured status.
+                      && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['verified', 'featured'])
+                      && hasValidSocialProfiles()
+                    )
+                    // Public view counter: only a single +1 increment, nothing else.
+                    || (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['viewCount'])
+                        && request.resource.data.viewCount is int
+                        && request.resource.data.viewCount == (('viewCount' in resource.data ? resource.data.viewCount : 0) + 1));
+
+      allow delete: if isAdmin();
+
+      match /catalogue/{itemId} {
+        allow read: if true;
+        allow create, update, delete: if isAdmin()
+                                      || (
+                                        isSignedIn()
+                                        && get(/databases/$(database)/documents/listings/$(listingId)).data.ownerId == request.auth.uid
+                                      );
+      }
+    }
+
+    match /enquiries/{enquiryId} {
+      // Public can submit enquiries — validate all required fields
+      allow create: if request.resource.data.keys().hasAll(['listingId', 'name', 'phone', 'status', 'ownerId'])
+                    && request.resource.data.status == "unread"
+                    // ownerId must be the listing's real owner — prevents spoofing/inbox flooding.
+                    && request.resource.data.ownerId == get(/databases/$(database)/documents/listings/$(request.resource.data.listingId)).data.ownerId
+                    && isValidString('name', 100)
+                    && request.resource.data.phone is string
+                    && request.resource.data.phone.size() <= 20
+                    && request.resource.data.listingId is string
+                    && request.resource.data.listingId.size() <= 100
+                    && (!('message' in request.resource.data)
+                        || (request.resource.data.message is string
+                            && request.resource.data.message.size() <= 2000))
+                    && (!('email' in request.resource.data)
+                        || (request.resource.data.email is string
+                            && request.resource.data.email.size() <= 255));
+
+      // Enquiries are private to the owner of the business they were sent to.
+      // Platform admins and superadmins must not be able to read or manage them.
+      allow read, update: if isSignedIn()
+                          && !isAdmin()
+                          && resource.data.ownerId == request.auth.uid;
+
+      allow delete: if false;
+    }
+
+    match /view_logs/{logId} {
+      allow create: if request.resource.data.listingId is string
+                    && request.resource.data.listingId.size() > 0
+                    && request.resource.data.listingId.size() <= 100;
+      allow read: if isAdmin()
+                  || (isSignedIn()
+                      && resource.data.listingId is string
+                      && exists(/databases/$(database)/documents/listings/$(resource.data.listingId))
+                      && get(/databases/$(database)/documents/listings/$(resource.data.listingId)).data.ownerId == request.auth.uid);
+      allow update, delete: if false;
+    }
+
+    match /listing_viewers/{viewerId} {
+      allow read: if true;
+      allow create, update: if request.resource.data.viewerId is string
+                            && request.resource.data.viewerId.size() > 0
+                            && request.resource.data.viewerId.size() <= 64
+                            && request.resource.data.listingId is string
+                            && request.resource.data.listingId.size() > 0
+                            && request.resource.data.listingId.size() <= 100;
+      // delete:false is intentional — stale records expire naturally via lastSeen timestamp filter
+      allow delete: if false;
+    }
+
+    match /contact_messages/{msgId} {
+      allow create: if isValidString('name', 100)
+                    && isValidString('email', 255)
+                    && isValidString('message', 2000);
+
+      allow read: if isAdmin();
+      allow update, delete: if isSuperAdmin();
+    }
+
+    match /featured_tickets/{ticketId} {
+      // Business owners submit via dashboard — isSignedIn() is sufficient
+      // (email verification enforced by Firebase Auth separately)
+      allow create: if isSignedIn()
+                    && request.resource.data.ownerId == request.auth.uid
+                    && request.resource.data.listingId is string
+                    && request.resource.data.listingId.size() <= 100;
+
+      allow read: if isAdmin()
+                  || (isSignedIn() && resource.data.ownerId == request.auth.uid);
+
+      allow update, delete: if isAdmin();
+    }
+
+    match /notifications/{notificationId} {
+      // Notifications store email subject + html body (sent by admin functions)
+      allow create: if isAdmin()
+                    && request.resource.data.subject is string
+                    && request.resource.data.subject.size() <= 500
+                    && request.resource.data.html is string
+                    && request.resource.data.html.size() <= 50000;
+      allow read: if isAdmin();
+      allow update, delete: if isSuperAdmin();
+    }
+
+    // ── Deny all other collections ─────────────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

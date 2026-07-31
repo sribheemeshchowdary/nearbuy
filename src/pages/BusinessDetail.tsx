@@ -17,14 +17,9 @@ import BusinessEnquiryForm from "@/components/BusinessEnquiryForm";
 import MobileBusinessDetail from "@/components/business-detail/MobileBusinessDetail";
 import SEOHead from "@/components/SEOHead";
 import { PreviewBanner } from "@/components/PreviewBanner";
-import { GALLERY_MAP } from "@/lib/demo-listings";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
-import { DEMO_ALL_LISTINGS } from "@/lib/demo-data";
-
-const USE_DEMO_BUSINESSES =
-  import.meta.env.DEV && import.meta.env.VITE_USE_DEMO_BUSINESSES === "true";
 
 const formatTime = (time: string) => {
   if (!time) return "";
@@ -65,13 +60,6 @@ const BusinessDetail = () => {
       (l.customSlug || toSlug(l.name)) === businessSlug;
 
     const fetchListing = async () => {
-      if (USE_DEMO_BUSINESSES) {
-        setFirestoreListing(DEMO_ALL_LISTINGS.find(slugMatch) ?? null);
-        setIsPreview(false);
-        setLoading(false);
-        return;
-      }
-
       try {
         // Public path: approved listings, visible to everyone.
         const q = query(collection(db, "listings"), where("status", "==", "approved"));
@@ -179,9 +167,7 @@ const BusinessDetail = () => {
   }
 
   const shareUrl = `${window.location.origin}/${areaSlug}/${categorySlug}/${businessSlug}`;
-  const galleryPhotos = listing.imageUrls?.length
-    ? listing.imageUrls
-    : GALLERY_MAP[listing.id] || [];
+  const galleryPhotos = listing.imageUrls?.length ? listing.imageUrls : [];
 
   const ogImage = listing.coverImage || listing.imageUrls?.[0] || galleryPhotos[0];
 

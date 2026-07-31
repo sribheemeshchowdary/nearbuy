@@ -30,11 +30,6 @@ import {
 } from "@/components/ui/select";
 import { SINGAPORE_DISTRICTS, BUSINESS_CATEGORIES, DISTRICT_COORDINATES } from "@/lib/districts";
 import { toast } from "sonner";
-import { DEMO_ALL_LISTINGS } from "@/lib/demo-data";
-
-const USE_DEMO_BUSINESSES =
-  import.meta.env.DEV && import.meta.env.VITE_USE_DEMO_BUSINESSES === "true";
-
 type ApproximateIpLocation = { lat: number; lng: number };
 let approximateIpLocationPromise: Promise<ApproximateIpLocation | null> | null = null;
 
@@ -128,10 +123,8 @@ const Index = ({ showMap, setShowMap, registerDetectLocation }: IndexProps) => {
   const toggleCategory = useCallback((val: string) => {
     setCategories((prev) => (prev.includes(val) ? prev.filter((c) => c !== val) : [...prev, val]));
   }, []);
-  const [listings, setListings] = useState<Listing[]>(
-    USE_DEMO_BUSINESSES ? DEMO_ALL_LISTINGS : [],
-  );
-  const [isFetchingListings, setIsFetchingListings] = useState(!USE_DEMO_BUSINESSES);
+  const [listings, setListings] = useState<Listing[]>([]);
+  const [isFetchingListings, setIsFetchingListings] = useState(true);
   useEffect(() => { setShowMap(true); }, [setShowMap]);
   useGoogleOneTap(); // Show Google One Tap on homepage for returning users
   const [selectedListing, setSelectedListing] = useState<Listing | null>(null);
@@ -551,12 +544,6 @@ const Index = ({ showMap, setShowMap, registerDetectLocation }: IndexProps) => {
 
 
   useEffect(() => {
-    if (USE_DEMO_BUSINESSES) {
-      setListings(DEMO_ALL_LISTINGS);
-      setIsFetchingListings(false);
-      return;
-    }
-
     // Real-time listener: unlike a one-shot getDocs (which fails and shows
     // "0 businesses" if Safari's first Firestore connection isn't ready yet),
     // onSnapshot waits for the connection and delivers data as soon as it's

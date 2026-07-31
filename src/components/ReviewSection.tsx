@@ -19,33 +19,6 @@ interface ReviewSectionProps {
   onAddReview?: (review: Omit<Review, "id" | "helpful">) => void;
 }
 
-const DEMO_REVIEWS: Review[] = [
-  {
-    id: "r1",
-    authorName: "Alice Tan",
-    rating: 5,
-    comment: "Excellent service! The team was professional and delivered beyond expectations. Highly recommend.",
-    date: "2026-02-15",
-    helpful: 12,
-  },
-  {
-    id: "r2",
-    authorName: "Bob Lee",
-    rating: 4,
-    comment: "Good overall experience. Response time could be slightly faster, but quality of work was top-notch.",
-    date: "2026-01-28",
-    helpful: 8,
-  },
-  {
-    id: "r3",
-    authorName: "Carol Ng",
-    rating: 5,
-    comment: "Been using their services for months now. Consistent quality and great customer support.",
-    date: "2025-12-10",
-    helpful: 5,
-  },
-];
-
 const StarRating = ({
   rating,
   interactive,
@@ -74,12 +47,14 @@ const StarRating = ({
 };
 
 const ReviewSection = ({ businessId, reviews: propReviews, onAddReview }: ReviewSectionProps) => {
-  const reviews = propReviews.length > 0 ? propReviews : DEMO_REVIEWS;
+  const reviews = propReviews.filter(Boolean);
   const [showForm, setShowForm] = useState(false);
   const [newRating, setNewRating] = useState(0);
   const [newComment, setNewComment] = useState("");
 
-  const avgRating = reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length;
+  const avgRating = reviews.length
+    ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+    : 0;
 
   const handleSubmit = () => {
     if (newRating === 0) {
@@ -141,6 +116,9 @@ const ReviewSection = ({ businessId, reviews: propReviews, onAddReview }: Review
 
       {/* Reviews list */}
       <div className="space-y-4">
+        {reviews.length === 0 && (
+          <p className="text-sm text-muted-foreground">No reviews yet.</p>
+        )}
         {reviews.map((review) => (
           <div key={review.id} className="border-b border-border/50 pb-4 last:border-0">
             <div className="flex items-center gap-3 mb-2">

@@ -8,7 +8,6 @@ import { toast } from "sonner";
 import { collection, query, where, onSnapshot, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
-import { DEMO_ENQUIRIES } from "@/lib/demo-enquiries";
 
 interface Enquiry {
   id: string;
@@ -40,7 +39,7 @@ const EnquiryInbox = ({ listings = [] }: EnquiryInboxProps) => {
   useEffect(() => {
     if (!user) { setLoading(false); return; }
     if (isDevMode) {
-      setEnquiries(DEMO_ENQUIRIES);
+      setEnquiries([]);
       setLoading(false);
       return;
     }

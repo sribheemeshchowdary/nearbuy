@@ -47,8 +47,6 @@ import EnquiryInbox from "@/components/EnquiryInbox";
 import { useListingViewCounts } from "@/hooks/useViewTracking";
 import ViewAnalyticsChart from "@/components/ViewAnalyticsChart";
 import { motion, AnimatePresence } from "framer-motion";
-import { DEMO_ALL_LISTINGS } from "@/lib/demo-data";
-import { DEMO_ENQUIRIES } from "@/lib/demo-enquiries";
 
 /* ─── Change Password Form ─── */
 const ChangePasswordForm = () => {
@@ -235,13 +233,7 @@ const BusinessDashboard = () => {
         return;
       }
       if (isDevMode) {
-        setListings(
-          DEMO_ALL_LISTINGS.slice(0, 6).map((listing) => ({
-            ...listing,
-            ownerId: user.uid,
-            ownerName: user.displayName || "Business Owner",
-          })),
-        );
+        setListings([]);
         setLoadingListings(false);
         return;
       }
@@ -294,21 +286,8 @@ const BusinessDashboard = () => {
   useEffect(() => {
     if (!user) return;
     if (isDevMode) {
-      setUnreadEnquiryCount(DEMO_ENQUIRIES.filter((enquiry) => enquiry.status === "unread").length);
-      setRecentEnquiries(DEMO_ENQUIRIES.map((enquiry) => {
-        const diff = Math.floor((Date.now() / 1000 - enquiry.createdAt.seconds) / 60);
-        const time = diff < 60
-          ? `${diff}m ago`
-          : diff < 1440
-            ? `${Math.floor(diff / 60)}h ago`
-            : `${Math.floor(diff / 1440)}d ago`;
-        return {
-          name: enquiry.name,
-          message: enquiry.message,
-          time,
-          listing: enquiry.listingName,
-        };
-      }));
+      setUnreadEnquiryCount(0);
+      setRecentEnquiries([]);
       return;
     }
     const q = query(collection(db, "enquiries"), where("ownerId", "==", user.uid));

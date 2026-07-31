@@ -60,11 +60,6 @@ const Privacy = lazyWithRefresh(() => import("./pages/Privacy"), "privacy");
 
 const queryClient = new QueryClient();
 const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, "");
-const enableDevRoutes = import.meta.env.DEV;
-const SeedFirestore = enableDevRoutes
-  ? lazyWithRefresh(() => import("./pages/SeedFirestore"), "seed")
-  : null;
-
 const AppContent = () => {
   const location = useLocation();
   useSmoothScroll();
@@ -125,7 +120,6 @@ const AppContent = () => {
           <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
           <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
           <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
-          {SeedFirestore && <Route path="/seed" element={<PageTransition><SeedFirestore /></PageTransition>} />}
           <Route path="/generate-sitemap" element={<PageTransition><GenerateSitemap /></PageTransition>} />
           <Route path="/:citySlug" element={<PageTransition><CityCategory /></PageTransition>} />
           <Route path="/:citySlug/:categorySlug" element={<PageTransition><CityCategory /></PageTransition>} />

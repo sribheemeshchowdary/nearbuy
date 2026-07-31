@@ -7,17 +7,10 @@ interface PhotoGalleryProps {
   businessName: string;
 }
 
-const DEMO_PHOTOS = [
-  "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&h=600&fit=crop",
-  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
-];
-
 const PhotoGallery = ({ photos, businessName }: PhotoGalleryProps) => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const allPhotos = photos.length > 0 ? photos : DEMO_PHOTOS;
+  const allPhotos = photos.filter(Boolean);
   const visiblePhotos = allPhotos.slice(0, 4);
   const remaining = allPhotos.length - 4;
 
@@ -28,6 +21,15 @@ const PhotoGallery = ({ photos, businessName }: PhotoGalleryProps) => {
     setActiveIndex(idx);
     setLightboxOpen(true);
   };
+
+  if (allPhotos.length === 0) {
+    return (
+      <div className="h-[200px] sm:h-[300px] md:h-[360px] rounded-2xl bg-secondary/50 border border-border/50 flex flex-col items-center justify-center text-center">
+        <Camera className="w-8 h-8 text-muted-foreground/30 mb-2" />
+        <p className="text-sm font-medium text-muted-foreground">No photos uploaded yet</p>
+      </div>
+    );
+  }
 
   // Keyboard navigation + body scroll lock
   useEffect(() => {

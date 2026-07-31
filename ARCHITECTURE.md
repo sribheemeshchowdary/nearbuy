@@ -450,9 +450,8 @@ VITE_FIREBASE_APP_ID=
 VITE_GOOGLE_MAPS_API_KEY=
 VITE_GOOGLE_CLIENT_ID=
 
-# Development/demo switches
+# Development switch
 VITE_ENABLE_DEV_BYPASS=false
-VITE_USE_DEMO_BUSINESSES=false
 ```
 
 Vite embeds `VITE_*` values into the browser bundle at build time. They are configuration, not server secrets. Firebase and Maps security must come from Firestore Rules, authorized domains, API restrictions, and quotas. Never commit private service-account credentials.

@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo, useRef, useCallback, type ReactNode } from "react";
 import { collection, getDocs, getDoc, doc, updateDoc, deleteDoc, setDoc, serverTimestamp } from "firebase/firestore";
 import { db, auth } from "@/lib/firebase";
-import { DEMO_ALL_LISTINGS } from "@/lib/demo-data";
 import { signOut } from "firebase/auth";
 import { useAuth } from "@/contexts/AuthContext";
 import { notifyImageApproval } from "@/lib/notify-image-approval";
@@ -373,8 +372,8 @@ const Admin = () => {
         setSuperadminUids(new Set(sSnap.docs.map((d) => d.id)));
       } catch {}
     } catch {
-      setAllListings(DEMO_ALL_LISTINGS);
-      setPendingListings(DEMO_ALL_LISTINGS.filter((l) => l.status === "pending_approval"));
+      setAllListings([]);
+      setPendingListings([]);
     }
     setLoading(false);
   };

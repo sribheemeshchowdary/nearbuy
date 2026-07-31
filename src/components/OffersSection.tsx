@@ -13,26 +13,10 @@ interface OffersSectionProps {
   offers: Offer[];
 }
 
-const DEMO_OFFERS: Offer[] = [
-  {
-    id: "o1",
-    title: "Grand Opening Special",
-    description: "Enjoy special discounts on all services for the month of March.",
-    discount: "20% OFF",
-    validUntil: "2026-03-31",
-    code: "OPEN20",
-  },
-  {
-    id: "o2",
-    title: "Refer a Friend",
-    description: "Get $10 credit when you refer a friend who makes a purchase.",
-    discount: "$10 Credit",
-    validUntil: "2026-06-30",
-  },
-];
-
 const OffersSection = ({ offers: propOffers }: OffersSectionProps) => {
-  const offers = propOffers.length > 0 ? propOffers : DEMO_OFFERS;
+  const offers = propOffers.filter(Boolean);
+
+  if (offers.length === 0) return null;
 
   return (
     <div className="space-y-4">

@@ -6,20 +6,9 @@ import { CITIES } from "@/lib/cities";
 import { toSlug, getBusinessUrl } from "@/lib/url-helpers";
 import { Button } from "@/components/ui/button";
 import { Download, Loader2, RefreshCw, FileText } from "lucide-react";
+import { chunkListingStatusesForFirestore, isPubliclyVisibleListing } from "@/lib/listing-status";
 
 const DOMAIN = "https://nearbuy.sg";
-const LIVE_LISTING_STATUSES = [
-  "approved",
-  "Approved",
-  "active",
-  "Active",
-  "published",
-  "Published",
-  "live",
-  "Live",
-  "visible",
-  "Visible",
-] as const;
 
 const CATEGORIES = [
   "Tuition", "Baking", "Music, Art & Craft", "Home Food", "Wellness", "Beauty",
@@ -41,6 +30,7 @@ interface ListingData {
   name: string;
   category: string;
   district: string;
+  status?: string;
   customSlug?: string;
   updatedAt?: { seconds: number };
   createdAt?: { seconds: number };
@@ -61,8 +51,15 @@ export default function GenerateSitemap() {
   const generate = async () => {
     setLoading(true);
     try {
-      const snap = await getDocs(query(collection(db, "listings"), where("status", "in", LIVE_LISTING_STATUSES)));
-      const listings = snap.docs.map((d) => ({ ...d.data() } as ListingData));
+      const snaps = await Promise.all(
+        chunkListingStatusesForFirestore().map((statuses) =>
+          getDocs(query(collection(db, "listings"), where("status", "in", statuses)))
+        )
+      );
+      const listings = snaps
+        .flatMap((snap) => snap.docs)
+        .map((d) => ({ ...d.data() } as ListingData))
+        .filter(isPubliclyVisibleListing);
 
       const urls: string[] = [];
 

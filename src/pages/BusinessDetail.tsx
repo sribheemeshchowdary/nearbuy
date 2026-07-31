@@ -20,19 +20,7 @@ import { PreviewBanner } from "@/components/PreviewBanner";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/contexts/AuthContext";
-
-const LIVE_LISTING_STATUSES = [
-  "approved",
-  "Approved",
-  "active",
-  "Active",
-  "published",
-  "Published",
-  "live",
-  "Live",
-  "visible",
-  "Visible",
-] as const;
+import { chunkListingStatusesForFirestore, isLiveListingStatus, isPubliclyVisibleListing } from "@/lib/listing-status";
 
 const formatTime = (time: string) => {
   if (!time) return "";
@@ -76,10 +64,15 @@ const BusinessDetail = () => {
       try {
         // Public path: live listings, including older Firebase records that
         // used legacy live statuses before the current approval workflow.
-        const q = query(collection(db, "listings"), where("status", "in", LIVE_LISTING_STATUSES));
-        const snap = await getDocs(q);
-        const match = snap.docs
+        const snaps = await Promise.all(
+          chunkListingStatusesForFirestore().map((statuses) =>
+            getDocs(query(collection(db, "listings"), where("status", "in", statuses)))
+          )
+        );
+        const match = snaps
+          .flatMap((snap) => snap.docs)
           .map(d => ({ id: d.id, ...d.data() } as Listing))
+          .filter(isPubliclyVisibleListing)
           .find(slugMatch);
         if (match) {
           setFirestoreListing(match);
@@ -100,7 +93,7 @@ const BusinessDetail = () => {
             .find(slugMatch);
           if (ownMatch) {
             setFirestoreListing(ownMatch);
-            setIsPreview(!LIVE_LISTING_STATUSES.includes(ownMatch.status as any));
+            setIsPreview(!isLiveListingStatus(ownMatch.status));
           }
         }
       } catch { /* fallback */ }

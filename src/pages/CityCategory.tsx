@@ -11,19 +11,7 @@ import { getSubcategoriesForCategory } from "@/lib/listing-form-config";
 import ListingCard, { type Listing } from "@/components/ListingCard";
 import { getBusinessUrl, toSlug } from "@/lib/url-helpers";
 import SEOHead from "@/components/SEOHead";
-
-const LIVE_LISTING_STATUSES = [
-  "approved",
-  "Approved",
-  "active",
-  "Active",
-  "published",
-  "Published",
-  "live",
-  "Live",
-  "visible",
-  "Visible",
-] as const;
+import { chunkListingStatusesForFirestore, isPubliclyVisibleListing } from "@/lib/listing-status";
 
 // Category images
 import tuitionImg from "@/assets/categories/education.webp";
@@ -173,14 +161,19 @@ const CityCategory = () => {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const q = query(collection(db, "listings"), where("status", "in", LIVE_LISTING_STATUSES));
-        const snap = await getDocs(q);
-        if (!snap.empty) {
-          const data = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Listing));
-          setListings(data);
-        } else {
-          setListings([]);
-        }
+        const snaps = await Promise.all(
+          chunkListingStatusesForFirestore().map((statuses) =>
+            getDocs(query(collection(db, "listings"), where("status", "in", statuses)))
+          )
+        );
+        const byId = new Map<string, Listing>();
+        snaps.forEach((snap) => {
+          snap.docs.forEach((doc) => {
+            const listing = { id: doc.id, ...doc.data() } as Listing;
+            if (isPubliclyVisibleListing(listing)) byId.set(doc.id, listing);
+          });
+        });
+        setListings([...byId.values()]);
       } catch {
         setListings([]);
       }

@@ -42,14 +42,28 @@ service cloud.firestore {
       return status in [
         "approved",
         "Approved",
+        "APPROVED",
         "active",
         "Active",
+        "ACTIVE",
         "published",
         "Published",
+        "PUBLISHED",
         "live",
         "Live",
+        "LIVE",
         "visible",
-        "Visible"
+        "Visible",
+        "VISIBLE",
+        "public",
+        "Public",
+        "PUBLIC",
+        "enabled",
+        "Enabled",
+        "verified",
+        "Verified",
+        "listed",
+        "Listed"
       ];
     }
 

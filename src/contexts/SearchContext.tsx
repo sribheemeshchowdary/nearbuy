@@ -1,19 +1,7 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase";
-
-const LIVE_LISTING_STATUSES = [
-  "approved",
-  "Approved",
-  "active",
-  "Active",
-  "published",
-  "Published",
-  "live",
-  "Live",
-  "visible",
-  "Visible",
-] as const;
+import { chunkListingStatusesForFirestore, isPubliclyVisibleListing } from "@/lib/listing-status";
 
 export interface SearchableListing {
   id: string;
@@ -137,12 +125,17 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const q = query(collection(db, "listings"), where("status", "in", LIVE_LISTING_STATUSES));
-        const snap = await getDocs(q);
-        if (!snap.empty) {
-          const data = snap.docs.map((doc) => {
+        const snaps = await Promise.all(
+          chunkListingStatusesForFirestore().map((statuses) =>
+            getDocs(query(collection(db, "listings"), where("status", "in", statuses)))
+          )
+        );
+        const byId = new Map<string, SearchableListing>();
+        snaps.forEach((snap) => {
+          snap.docs.forEach((doc) => {
             const d = doc.data();
-            return {
+            if (!isPubliclyVisibleListing(d)) return;
+            byId.set(doc.id, {
               id: doc.id,
               name: d.name,
               category: d.category,
@@ -152,10 +145,10 @@ export const SearchProvider = ({ children }: { children: ReactNode }) => {
               subcategory: d.subcategory,
               subcategories: d.subcategories,
               subjects: d.subjects,
-            } as SearchableListing;
+            } as SearchableListing);
           });
-          setListings(data);
-        }
+        });
+        setListings([...byId.values()]);
       } catch {
       // Keep the current Firebase-backed suggestions if a transient request fails.
       }

@@ -21,6 +21,7 @@ import { MapPin, SlidersHorizontal, Search, Map as MapIcon, ChevronRight, Clock,
 import { geocodeSingaporePostalCode } from "@/lib/geocode-pincode";
 import { getDistance } from "@/lib/utils";
 import { listingMatchesSearch } from "@/lib/listing-search";
+import { chunkListingStatusesForFirestore, isPubliclyVisibleListing } from "@/lib/listing-status";
 import { useCategoryCatalog } from "@/hooks/useCategoryCatalog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -32,18 +33,6 @@ import { SINGAPORE_DISTRICTS, BUSINESS_CATEGORIES, DISTRICT_COORDINATES } from "
 import { toast } from "sonner";
 type ApproximateIpLocation = { lat: number; lng: number };
 let approximateIpLocationPromise: Promise<ApproximateIpLocation | null> | null = null;
-const LIVE_LISTING_STATUSES = [
-  "approved",
-  "Approved",
-  "active",
-  "Active",
-  "published",
-  "Published",
-  "live",
-  "Live",
-  "visible",
-  "Visible",
-] as const;
 
 /**
  * GeoJS supports browser requests and is cached for the lifetime of this page,
@@ -560,20 +549,27 @@ const Index = ({ showMap, setShowMap, registerDetectLocation }: IndexProps) => {
     // "0 businesses" if Safari's first Firestore connection isn't ready yet),
     // onSnapshot waits for the connection and delivers data as soon as it's
     // available — no manual reload needed — and keeps the list live.
-    const q = query(collection(db, "listings"), where("status", "in", LIVE_LISTING_STATUSES));
-    const unsub = onSnapshot(
-      q,
-      (snap) => {
-        setListings(snap.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Listing)));
-        setIsFetchingListings(false);
-      },
-      (err) => {
-        // Don't blank the list on a transient error; keep whatever we have.
-        console.debug("listings listener error", err);
-        setIsFetchingListings(false);
-      },
-    );
-    return () => unsub();
+    const listingsById = new Map<string, Listing>();
+    const unsubs = chunkListingStatusesForFirestore().map((statuses) => {
+      const q = query(collection(db, "listings"), where("status", "in", statuses));
+      return onSnapshot(
+        q,
+        (snap) => {
+          snap.docs.forEach((doc) => {
+            const listing = { id: doc.id, ...doc.data() } as Listing;
+            if (isPubliclyVisibleListing(listing)) listingsById.set(doc.id, listing);
+          });
+          setListings([...listingsById.values()]);
+          setIsFetchingListings(false);
+        },
+        (err) => {
+          // Don't blank the list on a transient error; keep whatever we have.
+          console.debug("listings listener error", err);
+          setIsFetchingListings(false);
+        },
+      );
+    });
+    return () => unsubs.forEach((unsub) => unsub());
   }, []);
 
   // Reset all active filters back to defaults (for empty-state CTA)

@@ -202,6 +202,7 @@ const Admin = () => {
   const [superadminUids, setSuperadminUids] = useState<Set<string>>(new Set());
   const [userActionLoading, setUserActionLoading] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [adminLoadError, setAdminLoadError] = useState<string | null>(null);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [rejectingId, setRejectingId] = useState<string | null>(null);
@@ -353,6 +354,7 @@ const Admin = () => {
 
   const fetchData = async () => {
     setLoading(true);
+    setAdminLoadError(null);
     try {
       const [listingsRes, enquiriesRes, usersRes, adminsRes, superadminsRes] = await Promise.allSettled([
         getDocs(collection(db, "listings")),
@@ -369,6 +371,7 @@ const Admin = () => {
       } else {
         setAllListings([]);
         setPendingListings([]);
+        setAdminLoadError(`Listings could not be loaded: ${listingsRes.reason?.code || listingsRes.reason?.message || "unknown Firebase error"}`);
         console.debug("Failed to load admin listings", listingsRes.reason);
       }
 
@@ -390,6 +393,7 @@ const Admin = () => {
         setEnquiries(loadedEnquiries);
       } else {
         setEnquiries([]);
+        setAdminLoadError((current) => current || `Enquiries could not be loaded: ${enquiriesRes.reason?.code || enquiriesRes.reason?.message || "unknown Firebase error"}`);
         console.debug("Failed to load admin enquiries", enquiriesRes.reason);
       }
 
@@ -405,6 +409,7 @@ const Admin = () => {
         setSuperadminUids(new Set(superadminsRes.value.docs.map((d) => d.id)));
       }
     } catch (err) {
+      setAdminLoadError(`Admin data could not be loaded: ${err instanceof Error ? err.message : "unknown Firebase error"}`);
       console.debug("Failed to load admin data", err);
     }
     setLoading(false);
@@ -1123,6 +1128,16 @@ const Admin = () => {
 
         {/* ── Content ── */}
         <main className="flex-1 p-4 md:p-6 overflow-y-auto bg-[#f3f2f1]">
+          {adminLoadError && (
+            <div className="mb-4 rounded-lg border border-[#f7630c]/30 bg-[#fff4ce] px-4 py-3 text-sm text-[#5c2e00] flex items-start gap-3">
+              <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0 text-[#f7630c]" />
+              <div>
+                <p className="font-semibold">Firebase data did not load.</p>
+                <p className="text-xs mt-0.5">{adminLoadError}</p>
+                <p className="text-xs mt-1">Check that the deployed Firestore rules include super admin access and that this app is using project findlocalsg-d1587.</p>
+              </div>
+            </div>
+          )}
 
           {/* ═══ GLOBAL SEARCH RESULTS ════════════════════════ */}
           {isSearching && (

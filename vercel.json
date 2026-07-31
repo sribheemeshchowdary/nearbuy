@@ -11,7 +11,7 @@
       "destination": "https://www.onemap.gov.sg/:path*"
     },
     {
-      "source": "/(.*)",
+      "source": "/:path*",
       "destination": "/index.html"
     }
   ],

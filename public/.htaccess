@@ -1,12 +1,30 @@
 <IfModule mod_rewrite.c>
+  Options -MultiViews
   RewriteEngine On
   RewriteBase /
+
+  # Keep real API/static requests out of the React app fallback.
+  RewriteRule ^api/ - [L]
+  RewriteRule ^assets/ - [L]
+  RewriteRule ^favicon\.png$ - [L]
+  RewriteRule ^robots\.txt$ - [L]
+  RewriteRule ^sitemap\.xml$ - [L]
+  RewriteRule ^offline-pincodes\.json$ - [L]
 
   # Serve existing files and directories normally.
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # Let React Router handle every other application route.
-  RewriteRule ^ index.html [L]
+  # Let React Router handle every other application route:
+  # /admin, /dashboard, /signup, /city/category/business, etc.
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# Hostinger/Apache fallback for direct deep-link refreshes.
+ErrorDocument 404 /index.html
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>

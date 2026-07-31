@@ -167,18 +167,17 @@ const NavItem = ({ icon: Icon, label, active, badge, onClick }: {
 }) => (
   <button
     onClick={onClick}
-    className={`group relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 active:scale-[0.98]
+    className={`group relative w-full flex items-center gap-3 px-3.5 py-2.5 rounded-md text-[13px] font-semibold transition-all duration-200 active:scale-[0.98]
       ${active
-        ? "bg-primary/[0.08] text-primary shadow-[inset_0_0_0_1px_hsl(var(--primary)/0.12)]"
-        : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground"
+        ? "bg-[#e5f1fb] text-[#005a9e] shadow-[inset_3px_0_0_#0078d4]"
+        : "text-[#424242] hover:bg-[#f3f2f1] hover:text-[#201f1e]"
       }`}
   >
-    {active && <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 rounded-r-full bg-primary" />}
-    <Icon className={`w-[18px] h-[18px] shrink-0 transition-transform group-hover:scale-110 ${active ? "text-primary" : "text-muted-foreground"}`} />
+    <Icon className={`w-[18px] h-[18px] shrink-0 transition-transform group-hover:scale-105 ${active ? "text-[#0078d4]" : "text-[#605e5c]"}`} />
     {label && <span className="flex-1 text-left">{label}</span>}
     {badge !== undefined && badge > 0 && (
       <span className={`min-w-[20px] h-5 px-1.5 rounded-full text-[10px] font-bold flex items-center justify-center transition-colors
-        ${active ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"}`}>
+        ${active ? "bg-[#0078d4] text-white" : "bg-[#edebe9] text-[#605e5c]"}`}>
         {badge > 99 ? "99+" : badge}
       </span>
     )}
@@ -784,17 +783,54 @@ const Admin = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#fbfbfb] flex" style={{ fontFamily: "'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" }}>
+    <div
+      className="ms-admin-console min-h-screen bg-[#f3f2f1] text-[#201f1e] flex"
+      style={{
+        fontFamily: "'Segoe UI Variable', 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+        ["--primary" as string]: "211 100% 42%",
+        ["--primary-glow" as string]: "199 89% 48%",
+      }}
+    >
+      <style>{`
+        .ms-admin-console .bg-card {
+          background: rgba(255, 255, 255, 0.96);
+        }
+        .ms-admin-console main .bg-card,
+        .ms-admin-console main .bg-white {
+          border-color: #e1dfdd !important;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+        .ms-admin-console main .rounded-2xl {
+          border-radius: 12px;
+        }
+        .ms-admin-console main .rounded-xl {
+          border-radius: 8px;
+        }
+        .ms-admin-console table thead,
+        .ms-admin-console .bg-secondary\\/30 {
+          background: #faf9f8 !important;
+        }
+        .ms-admin-console table tr:hover,
+        .ms-admin-console .hover\\:bg-secondary\\/20:hover,
+        .ms-admin-console .hover\\:bg-secondary\\/40:hover {
+          background: #f3f2f1 !important;
+        }
+        .ms-admin-console input,
+        .ms-admin-console textarea,
+        .ms-admin-console select {
+          border-radius: 4px !important;
+        }
+      `}</style>
 
       {/* ══════════════════════════════════════════════════════
          SIDEBAR — Clean modern white sidebar
          ══════════════════════════════════════════════════════ */}
-      <aside className={`hidden md:flex flex-col bg-card border-r border-foreground/[0.06] shrink-0 transition-all duration-300 ${sidebarCollapsed ? "w-[68px]" : "w-[240px]"}`}>
+      <aside className={`hidden md:flex flex-col bg-white border-r border-[#edebe9] shrink-0 transition-all duration-300 shadow-[1px_0_0_rgba(0,0,0,0.02)] ${sidebarCollapsed ? "w-[68px]" : "w-[256px]"}`}>
         {/* Logo area */}
-        <div className={`h-14 flex items-center border-b border-foreground/[0.06] gap-2.5 bg-gradient-to-b from-primary/[0.05] to-transparent ${sidebarCollapsed ? "px-0 justify-center" : "px-4"}`}>
+        <div className={`h-14 flex items-center border-b border-[#edebe9] gap-2.5 bg-white ${sidebarCollapsed ? "px-0 justify-center" : "px-4"}`}>
           {sidebarCollapsed ? (
-            <div className="w-8 h-8 rounded-[10px] bg-white flex items-center justify-center shrink-0 shadow-[0_2px_8px_rgba(31,58,46,0.18)] ring-1 ring-black/5">
-              <BrandMark className="w-5 h-5 text-primary" />
+            <div className="w-8 h-8 rounded-md bg-[#0078d4] flex items-center justify-center shrink-0 shadow-sm">
+              <BrandMark className="w-5 h-5 text-white" />
             </div>
           ) : (
             <BrandLockup subtitle="Control Center" />
@@ -803,18 +839,18 @@ const Admin = () => {
 
         {/* Nav */}
         <nav className="flex-1 p-3 space-y-1">
-          {!sidebarCollapsed && <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 px-3 mb-2">Overview</p>}
+          {!sidebarCollapsed && <p className="text-[10px] font-bold uppercase tracking-widest text-[#605e5c] px-3 mb-2">Overview</p>}
           <NavItem icon={LayoutDashboard} label={sidebarCollapsed ? "" : "Dashboard"} active={activeTab === "dashboard"} badge={stats.pending} onClick={() => setActiveTab("dashboard")} />
           <NavItem icon={Building2} label={sidebarCollapsed ? "" : "All Listings"} active={activeTab === "listings"} badge={stats.total} onClick={() => setActiveTab("listings")} />
           
-          {!sidebarCollapsed && <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 px-3 mt-5 mb-2">People</p>}
+          {!sidebarCollapsed && <p className="text-[10px] font-bold uppercase tracking-widest text-[#605e5c] px-3 mt-5 mb-2">People</p>}
           <NavItem icon={Users} label={sidebarCollapsed ? "" : "Users"} active={activeTab === "users"} badge={appUsers.length} onClick={() => setActiveTab("users")} />
 
-          {!sidebarCollapsed && <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 px-3 mt-5 mb-2">Insights</p>}
+          {!sidebarCollapsed && <p className="text-[10px] font-bold uppercase tracking-widest text-[#605e5c] px-3 mt-5 mb-2">Insights</p>}
           <NavItem icon={BarChart3} label={sidebarCollapsed ? "" : "Analytics"} active={activeTab === "analytics"} onClick={() => setActiveTab("analytics")} />
           <NavItem icon={Activity} label={sidebarCollapsed ? "" : "Activity Log"} active={activeTab === "activity"} onClick={() => setActiveTab("activity")} />
 
-          {!sidebarCollapsed && <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 px-3 mt-5 mb-2">System</p>}
+          {!sidebarCollapsed && <p className="text-[10px] font-bold uppercase tracking-widest text-[#605e5c] px-3 mt-5 mb-2">System</p>}
           {isSuperAdmin && (
             <NavItem icon={Layers} label={sidebarCollapsed ? "" : "Categories"} active={activeTab === "categories"} onClick={() => setActiveTab("categories")} />
           )}
@@ -822,18 +858,18 @@ const Admin = () => {
         </nav>
 
         {/* Bottom */}
-        <div className="p-3 border-t border-foreground/[0.06]">
+        <div className="p-3 border-t border-[#edebe9] bg-[#faf9f8]">
           {!sidebarCollapsed && (
-            <div className="flex items-center gap-2.5 px-3 py-2.5 mb-2 rounded-xl bg-secondary/40 border border-foreground/[0.04]">
+            <div className="flex items-center gap-2.5 px-3 py-2.5 mb-2 rounded-md bg-white border border-[#edebe9] shadow-sm">
               <div className="relative shrink-0">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center text-primary-foreground text-xs font-bold">
+                <div className="w-8 h-8 rounded-full bg-[#0078d4] flex items-center justify-center text-white text-xs font-bold">
                   {user?.displayName?.[0] || user?.email?.[0]?.toUpperCase() || "A"}
                 </div>
-                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-card" title="Online" />
+                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#107c10] ring-2 ring-white" title="Online" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-xs font-bold text-foreground truncate leading-tight">{user?.displayName || user?.email?.split("@")[0] || "Admin"}</p>
-                <span className="inline-flex items-center mt-1 text-[8.5px] font-extrabold uppercase tracking-wider text-primary bg-primary/10 px-1.5 py-0.5 rounded leading-none">
+                <span className="inline-flex items-center mt-1 text-[8.5px] font-extrabold uppercase tracking-wider text-[#005a9e] bg-[#e5f1fb] px-1.5 py-0.5 rounded-sm leading-none">
                   {isSuperAdmin ? "Super Admin" : "Admin"}
                 </span>
               </div>
@@ -841,7 +877,7 @@ const Admin = () => {
           )}
           <button
             onClick={async () => { if (isDevMode) devLogout(); else await signOut(auth); navigate("/"); }}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-[13px] font-semibold text-destructive hover:bg-destructive/5 transition"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-[13px] font-semibold text-[#a4262c] hover:bg-[#fde7e9] transition"
           >
             <LogOut className="w-[18px] h-[18px] shrink-0" />
             {!sidebarCollapsed && <span>Sign Out</span>}
@@ -850,16 +886,16 @@ const Admin = () => {
       </aside>
 
       {/* ── Mobile top bar ── */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-card border-b border-foreground/[0.06] flex items-center px-3 h-14 shadow-sm">
-        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-secondary text-muted-foreground transition-colors active:scale-95">
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-[#edebe9] flex items-center px-3 h-14 shadow-sm">
+        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-[#f3f2f1] text-[#605e5c] transition-colors active:scale-95">
           <Menu className="w-5 h-5" />
         </button>
         <div className="flex items-center gap-2 ml-2">
-          <div className="w-7 h-7 rounded-lg bg-white flex items-center justify-center shadow-sm ring-1 ring-black/5">
-            <BrandMark className="w-[18px] h-[18px] text-primary" />
+          <div className="w-7 h-7 rounded-md bg-[#0078d4] flex items-center justify-center shadow-sm">
+            <BrandMark className="w-[18px] h-[18px] text-white" />
           </div>
-          <span className="font-extrabold text-sm text-foreground tracking-tight">Nearbuy</span>
-          <span className="text-[8px] font-extrabold uppercase tracking-wider text-primary bg-primary/10 px-1 py-0.5 rounded">Admin</span>
+          <span className="font-semibold text-sm text-[#201f1e] tracking-tight">Nearbuy</span>
+          <span className="text-[8px] font-extrabold uppercase tracking-wider text-[#005a9e] bg-[#e5f1fb] px-1 py-0.5 rounded-sm">Admin</span>
         </div>
       </div>
 
@@ -867,7 +903,7 @@ const Admin = () => {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-[60] md:hidden">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)} />
-          <div className="relative w-[280px] h-full bg-card flex flex-col py-5 px-4 shadow-2xl">
+          <div className="relative w-[280px] h-full bg-white flex flex-col py-5 px-4 shadow-2xl">
             <div className="flex items-center gap-2.5 mb-6 px-2">
               <BrandLockup chip="w-9 h-9" mark="w-[22px] h-[22px]" subtitle="Control Center" />
             </div>
@@ -901,14 +937,14 @@ const Admin = () => {
       <div className="flex-1 flex flex-col min-w-0 md:pt-0 pt-14">
 
         {/* ── Top command bar ── */}
-        <header className="sticky top-0 z-30 bg-card border-b border-foreground/[0.06] px-4 md:px-6 py-2.5 md:py-0 md:h-14 flex flex-wrap md:flex-nowrap items-center gap-x-2 gap-y-2.5 md:gap-4 shadow-sm shadow-black/[0.01]">
+        <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-xl border-b border-[#edebe9] px-4 md:px-6 py-2.5 md:py-0 md:h-14 flex flex-wrap md:flex-nowrap items-center gap-x-2 gap-y-2.5 md:gap-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
           <div className="flex items-center gap-3">
-            <h1 className="text-[15px] font-bold text-foreground">
+            <h1 className="text-[15px] font-semibold text-[#201f1e]">
               {{ dashboard: "Dashboard", listings: "Listings", enquiries: "Enquiries", users: "Users", categories: "Categories", analytics: "Analytics", activity: "Activity Log", settings: "Settings" }[activeTab]}
             </h1>
             {stats.pending > 0 && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-600 text-[11px] font-semibold">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm bg-[#fff4ce] text-[#8a6a00] text-[11px] font-semibold border border-[#fde300]/50">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#ffaa44] animate-pulse" />
                 {stats.pending} pending
               </span>
             )}
@@ -921,23 +957,23 @@ const Admin = () => {
               placeholder="Search businesses and users…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-xl bg-secondary/50 text-sm text-foreground placeholder:text-muted-foreground border border-foreground/[0.06] focus:border-primary focus:ring-4 focus:ring-primary/10 focus:outline-none transition-all duration-200"
+              className="w-full pl-10 pr-4 py-2 rounded-md bg-[#faf9f8] text-sm text-[#201f1e] placeholder:text-[#605e5c] border border-[#d2d0ce] focus:border-[#0078d4] focus:ring-2 focus:ring-[#0078d4]/20 focus:outline-none transition-all duration-200"
             />
           </div>
 
           <div className="ml-auto flex items-center gap-1.5 md:gap-2">
-            <Button variant="outline" size="sm" onClick={exportListings} className="h-8 px-2.5 lg:px-4 rounded-xl text-xs border-foreground/[0.08] text-muted-foreground hover:bg-secondary" title="Export CSV">
+            <Button variant="outline" size="sm" onClick={exportListings} className="h-8 px-2.5 lg:px-4 rounded-md text-xs border-[#d2d0ce] text-[#323130] hover:bg-[#f3f2f1] hover:text-[#201f1e]" title="Export CSV">
               <Download className="w-3.5 h-3.5 lg:mr-1.5" /><span className="hidden lg:inline">Export CSV</span>
             </Button>
-            <Button variant="outline" size="sm" onClick={fetchData} className="h-8 px-2.5 lg:px-4 rounded-xl text-xs border-foreground/[0.08] text-muted-foreground hover:bg-secondary" title="Refresh">
+            <Button variant="outline" size="sm" onClick={fetchData} className="h-8 px-2.5 lg:px-4 rounded-md text-xs border-[#d2d0ce] text-[#323130] hover:bg-[#f3f2f1] hover:text-[#201f1e]" title="Refresh">
               <RefreshCw className="w-3.5 h-3.5 lg:mr-1.5" /><span className="hidden lg:inline">Refresh</span>
             </Button>
-            <div className="w-px h-6 bg-foreground/[0.08] mx-0.5 md:mx-1" />
+            <div className="w-px h-6 bg-[#edebe9] mx-0.5 md:mx-1" />
             <div className="relative">
-              <button onClick={() => setNotifOpen(!notifOpen)} className="relative w-9 h-9 rounded-xl hover:bg-secondary flex items-center justify-center transition">
-                <Bell className="w-[18px] h-[18px] text-muted-foreground" />
+              <button onClick={() => setNotifOpen(!notifOpen)} className="relative w-9 h-9 rounded-md hover:bg-[#f3f2f1] flex items-center justify-center transition">
+                <Bell className="w-[18px] h-[18px] text-[#605e5c]" />
                 {notifications.length > 0 && (
-                  <span className="absolute top-1 right-1 min-w-[16px] h-4 px-1 rounded-full bg-destructive text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-card">
+                  <span className="absolute top-1 right-1 min-w-[16px] h-4 px-1 rounded-full bg-[#d13438] text-white text-[9px] font-bold flex items-center justify-center ring-2 ring-white">
                     {notifications.length > 9 ? "9+" : notifications.length}
                   </span>
                 )}
@@ -947,15 +983,15 @@ const Admin = () => {
               {notifOpen && (
                 <>
                   <div className="fixed inset-0 z-40" onClick={() => setNotifOpen(false)} />
-                  <div className="fixed left-3 right-3 top-[104px] w-auto md:absolute md:left-auto md:right-0 md:top-11 md:w-[380px] z-50 bg-card rounded-2xl border border-foreground/[0.06] shadow-xl overflow-hidden animate-fade-in">
-                    <div className="px-4 py-3 border-b border-foreground/[0.06] flex items-center justify-between">
+                  <div className="fixed left-3 right-3 top-[104px] w-auto md:absolute md:left-auto md:right-0 md:top-11 md:w-[380px] z-50 bg-white rounded-lg border border-[#e1dfdd] shadow-[0_12px_32px_rgba(0,0,0,0.14)] overflow-hidden animate-fade-in">
+                    <div className="px-4 py-3 border-b border-[#edebe9] flex items-center justify-between bg-[#faf9f8]">
                       <div className="flex items-center gap-2">
                         <h3 className="text-sm font-bold text-foreground">Notifications</h3>
                         {notifications.length > 0 && (
                           <span className="px-1.5 py-0.5 rounded-full bg-destructive/10 text-destructive text-[10px] font-bold">{notifications.length}</span>
                         )}
                       </div>
-                      <button onClick={() => setNotifOpen(false)} className="w-7 h-7 rounded-lg hover:bg-secondary flex items-center justify-center">
+                      <button onClick={() => setNotifOpen(false)} className="w-7 h-7 rounded-md hover:bg-[#edebe9] flex items-center justify-center">
                         <X className="w-4 h-4 text-muted-foreground" />
                       </button>
                     </div>
@@ -987,10 +1023,10 @@ const Admin = () => {
                 </>
               )}
             </div>
-            <div className="relative pl-3 ml-1 border-l border-foreground/[0.08]">
+            <div className="relative pl-3 ml-1 border-l border-[#edebe9]">
               <button 
                 onClick={() => setUserMenuOpen(!userMenuOpen)} 
-                className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-[11px] font-bold hover:opacity-90 active:scale-95 transition-all focus:outline-none"
+                className="w-8 h-8 rounded-full bg-[#0078d4] flex items-center justify-center text-white text-[11px] font-bold hover:bg-[#106ebe] active:scale-95 transition-all focus:outline-none"
               >
                 {user?.displayName?.[0] || user?.email?.[0]?.toUpperCase() || "A"}
               </button>
@@ -998,11 +1034,11 @@ const Admin = () => {
               {userMenuOpen && (
                 <>
                   <div className="fixed inset-0 z-45" onClick={() => setUserMenuOpen(false)} />
-                  <div className="absolute right-0 top-10.5 z-50 w-[240px] bg-card rounded-2xl border border-foreground/[0.06] shadow-xl py-2 overflow-hidden animate-fade-in text-left">
-                    <div className="px-4 py-2.5 border-b border-foreground/[0.06] mb-1">
+                  <div className="absolute right-0 top-10.5 z-50 w-[240px] bg-white rounded-lg border border-[#e1dfdd] shadow-[0_12px_32px_rgba(0,0,0,0.14)] py-2 overflow-hidden animate-fade-in text-left">
+                    <div className="px-4 py-2.5 border-b border-[#edebe9] mb-1 bg-[#faf9f8]">
                       <p className="text-xs font-bold text-foreground truncate">{user?.displayName || "Admin User"}</p>
                       <p className="text-[10px] text-muted-foreground truncate mt-0.5">{user?.email || "admin@nearbuy.sg"}</p>
-                      <span className="inline-flex items-center mt-1.5 px-2 py-0.5 rounded bg-primary/10 text-primary text-[9px] font-bold uppercase tracking-wider">
+                      <span className="inline-flex items-center mt-1.5 px-2 py-0.5 rounded-sm bg-[#e5f1fb] text-[#005a9e] text-[9px] font-bold uppercase tracking-wider">
                         Super Admin
                       </span>
                     </div>
@@ -1053,7 +1089,7 @@ const Admin = () => {
         </header>
 
         {/* ── Content ── */}
-        <main className="flex-1 p-4 md:p-6 overflow-y-auto">
+        <main className="flex-1 p-4 md:p-6 overflow-y-auto bg-[#f3f2f1]">
 
           {/* ═══ GLOBAL SEARCH RESULTS ════════════════════════ */}
           {isSearching && (
@@ -1137,27 +1173,57 @@ const Admin = () => {
           {/* ═══ DASHBOARD ════════════════════════════════════ */}
           {!isSearching && activeTab === "dashboard" && (
             <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+              <div className="rounded-xl border border-[#e1dfdd] bg-white p-5 shadow-sm overflow-hidden relative">
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#0078d4] via-[#50e6ff] to-[#107c10]" />
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                  <div>
+                    <div className="inline-flex items-center gap-2 rounded-sm bg-[#e5f1fb] px-2.5 py-1 text-[11px] font-semibold text-[#005a9e] border border-[#c7e0f4]">
+                      <Shield className="h-3.5 w-3.5" />
+                      Microsoft-style control center
+                    </div>
+                    <h2 className="mt-3 text-2xl font-semibold tracking-tight text-[#201f1e]">Super Admin Dashboard</h2>
+                    <p className="mt-1 max-w-2xl text-sm text-[#605e5c]">
+                      Review listings, manage users, monitor approvals, and keep Nearbuy operations clean from one command workspace.
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 rounded-lg border border-[#edebe9] bg-[#faf9f8] p-2 text-center">
+                    <div className="px-3 py-2">
+                      <p className="text-xl font-semibold text-[#201f1e] tabular-nums">{stats.pending}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-wide text-[#605e5c]">Pending</p>
+                    </div>
+                    <div className="px-3 py-2 border-x border-[#edebe9]">
+                      <p className="text-xl font-semibold text-[#201f1e] tabular-nums">{appUsers.length}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-wide text-[#605e5c]">Users</p>
+                    </div>
+                    <div className="px-3 py-2">
+                      <p className="text-xl font-semibold text-[#201f1e] tabular-nums">{stats.approved}</p>
+                      <p className="text-[10px] font-semibold uppercase tracking-wide text-[#605e5c]">Live</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {/* Listing administration summary */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {([
-                  { icon: Building2, label: "Total Listings", value: stats.total, accent: "text-primary", bg: "bg-primary/5", trend: "+12%" },
-                  { icon: Clock, label: "Pending Review", value: stats.pending, accent: "text-amber-500", bg: "bg-amber-500/5", trend: null },
-                  { icon: Check, label: "Approved", value: stats.approved, accent: "text-emerald-500", bg: "bg-emerald-500/5", trend: "+8%" },
-                  { icon: X, label: "Rejected", value: stats.rejected, accent: "text-rose-500", bg: "bg-rose-500/5", trend: null },
+                  { icon: Building2, label: "Total Listings", value: stats.total, accent: "text-[#0078d4]", bg: "bg-[#e5f1fb]", trend: "+12%" },
+                  { icon: Clock, label: "Pending Review", value: stats.pending, accent: "text-[#8a6a00]", bg: "bg-[#fff4ce]", trend: null },
+                  { icon: Check, label: "Approved", value: stats.approved, accent: "text-[#107c10]", bg: "bg-[#dff6dd]", trend: "+8%" },
+                  { icon: X, label: "Rejected", value: stats.rejected, accent: "text-[#a4262c]", bg: "bg-[#fde7e9]", trend: null },
                 ] as const).map((s) => (
-                  <div key={s.label} className="relative bg-card rounded-2xl border border-foreground/[0.06] p-5 overflow-hidden hover:shadow-[0_8px_20px_rgba(0,0,0,0.04)] hover:-translate-y-0.5 transition-all duration-300 group">
+                  <div key={s.label} className="relative bg-white rounded-xl border border-[#e1dfdd] p-5 overflow-hidden hover:shadow-[0_8px_18px_rgba(0,0,0,0.08)] transition-all duration-200 group">
                     <div className="flex items-start justify-between">
                       <div className="space-y-1">
-                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">{s.label}</p>
-                        <p className="text-3xl font-extrabold text-foreground tabular-nums tracking-tight">{s.value}</p>
+                        <p className="text-[10px] font-semibold text-[#605e5c] uppercase tracking-wider">{s.label}</p>
+                        <p className="text-3xl font-semibold text-[#201f1e] tabular-nums tracking-tight">{s.value}</p>
                         {s.trend && (
                           <div className="flex items-center gap-1 mt-1">
-                            <ArrowUp className="w-3 h-3 text-emerald-500" />
-                            <span className="text-[10px] font-bold text-emerald-600">{s.trend}</span>
+                            <ArrowUp className="w-3 h-3 text-[#107c10]" />
+                            <span className="text-[10px] font-bold text-[#107c10]">{s.trend}</span>
                           </div>
                         )}
                       </div>
-                      <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-105 ${s.bg}`}>
+                      <div className={`w-11 h-11 rounded-lg flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-105 ${s.bg}`}>
                         <s.icon className={`w-5 h-5 ${s.accent}`} />
                       </div>
                     </div>

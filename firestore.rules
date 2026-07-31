@@ -189,11 +189,11 @@ service cloud.firestore {
                         || (request.resource.data.email is string
                             && request.resource.data.email.size() <= 255));
 
-      // Enquiries are private to the owner of the business they were sent to.
-      // Platform admins and superadmins must not be able to read or manage them.
-      allow read, update: if isSignedIn()
-                          && !isAdmin()
-                          && resource.data.ownerId == request.auth.uid;
+      // Enquiries are visible to admins in the super admin panel and to the
+      // business owner in their dashboard.
+      allow read, update: if isAdmin()
+                          || (isSignedIn()
+                              && resource.data.ownerId == request.auth.uid);
 
       allow delete: if false;
     }

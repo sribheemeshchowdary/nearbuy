@@ -437,11 +437,59 @@ export async function geocodeSingaporePostalCode(
 export const isInSingapore = (lat: number, lng: number) =>
   lat >= 1.15 && lat <= 1.48 && lng >= 103.6 && lng <= 104.1;
 
-/**
- * Robust Reverse Geocoding utilizing Google Maps JS SDK for 100% accuracy
- * Retrieves exact building name, block, street, postal code, and district.
- */
 export async function reverseGeocodeLocation(lat: number, lng: number): Promise<GeocodeResult | null> {
+  const isSg = isInSingapore(lat, lng);
+
+  if (isSg) {
+    try {
+      const res = await fetchOneMap(
+        `/api/public/revgeocode?location=${lat},${lng}&buffer=500&addressType=All`
+      );
+      const data = await res.json();
+      const result = data?.GeocodeInfo?.[0] || data?.geocodeInfo?.[0];
+      if (result) {
+        const postal = String(result.POSTALCODE || result.POSTAL || "").trim();
+        const block = String(result.BLOCK || result.BLK_NO || "").replace(/^NIL$/i, "").trim();
+        const road = String(result.ROAD || result.ROAD_NAME || "").replace(/^NIL$/i, "").trim();
+        const building = String(result.BUILDINGNAME || result.BUILDING || "").replace(/^NIL$/i, "").trim();
+        const district = nearestDistrict(lat, lng, postal, `${building} ${road}`);
+        const partial = { lat, lng, building, block, road, postal, matchQuality: postal ? "exact" as const : "partial" as const, district };
+        return { ...partial, address: formatSgAddress(partial) };
+      }
+    } catch {
+      // fall through to broader reverse-geocoding fallbacks
+    }
+  } else {
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        const address = data?.display_name || `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+        const details = data?.address || {};
+        const district = [
+          details.city || details.town || details.village || details.suburb,
+          details.state,
+          details.country,
+        ].filter(Boolean).join(", ");
+        return {
+          lat,
+          lng,
+          building: details.building || details.house_name || "",
+          block: details.house_number || "",
+          road: details.road || "",
+          postal: details.postcode || "",
+          matchQuality: "exact",
+          district,
+          address,
+        };
+      }
+    } catch {
+      // fall through to Google only if open reverse-geocoding is unavailable
+    }
+  }
+
   if (typeof window !== "undefined" && (window as any).google?.maps?.Geocoder) {
     try {
       const geocoder = new (window as any).google.maps.Geocoder();
